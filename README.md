@@ -5,5 +5,5 @@ Games Using Python
 |       Game    |      Status    |
 |---------------|----------------|
 | Tic Tac Toe   | ✅ Completed   |
-| Snake Game    | 🚧 In Progress |
+| Snake Game    | ✅ Completed   |
 | Flappy Bird   | ⏳ Planned     |
