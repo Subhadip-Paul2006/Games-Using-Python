@@ -3,12 +3,12 @@ SNAKE GAME WITH POSTGRESQL DATABASE INTEGRATION & PYGAME
 
 DATABASE SETUP:
 Ensure PostgreSQL is running with the following configuration:
-Database: snake_game_db
-Table: snake_game_scores
-Host: localhost
-Port: 5432
-User: postgres
-Password: subh06
+Database: <Use Your>
+Table: <Use Your>
+Host: <Use Your>
+Port: <Use Your>
+User: <Use Your>
+Password: <Use Your>
 
 CONTROLS:
 W = Up
