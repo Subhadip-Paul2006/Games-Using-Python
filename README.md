@@ -2,8 +2,9 @@
 Games Using Python
 ## 🎮 Game Status
 
-|       Game    |      Status    |
-|---------------|----------------|
-| Tic Tac Toe   | ✅ Completed   |
-| Snake Game    | ✅ Completed   |
-| Flappy Bird   | ⏳ Planned     |
+|  Number  |     Game           |      Status    |
+|----------|--------------------|----------------|
+|    1     | Single Tic Tac Toe | ✅ Completed   |
+|    2     | Snake Game         | ✅ Completed   |
+|    3     | Multi Tic Tac Toe  | 🚧 In Progress |
+|    4     | Flappy Bird        | ⏳ Planned     |
