@@ -8,6 +8,6 @@ Games Using Python
 |    2     | Snake Game         | ✅ Completed   |
 |    3     | Multi Tic Tac Toe  | 🚧 In Progress |
 |    4     | Flappy Bird        | ⏳ Planned     |
-|    4     | Pong Game          | ⏳ Planned     |
+|    5     | Pong Game          | ⏳ Planned     |
 
 #Remember reading the README.md file in each projects before using it.
