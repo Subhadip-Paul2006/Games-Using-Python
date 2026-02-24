@@ -2,12 +2,16 @@
 Games Using Python
 ## 🎮 Game Status
 
-|  Number  |     Game           |      Status    |
-|----------|--------------------|----------------|
-|    1     | Single Tic Tac Toe | ✅ Completed   |
-|    2     | Snake Game         | ✅ Completed   |
-|    3     | Multi Tic Tac Toe  | 🚧 In Progress |
-|    4     | Flappy Bird        | ⏳ Planned     |
-|    5     | Pong Game          | ⏳ Planned     |
+|  Number  |     Game           |      Status    | With Love From |
+|----------|--------------------|----------------|----------------|
+|    1     | Single Tic Tac Toe | ✅ Completed   |     Subh      |
+|    2     | Snake Game         | ✅ Completed   |Subh & Abhishek|
+|    3     | Multi Tic Tac Toe  | 🚧 In Progress |Subh & Abhishek|
+|    4     | Flappy Bird        | ✅ Completed   |Abhishek & Samhita & Ayan|
+|    5     | Pong Game          | ⏳ Planned     |Subh & Abhishek|
 
 #Remember reading the README.md file in each projects before using it.
+
+#Be coutious before using the Flappy Bird. Some bug may be there!!! README.md not prepared for the same. 
+
+Apologize 🙏 !!!
