@@ -11,3 +11,5 @@ Games Using Python
 |    5     | Pong Game          | ⏳ Planned     |Subh & Abhishek|
 
 #Remember reading the README.md file in each projects before using it.
+#Be coutious before using the Flappy Bird. Some bug may be there!!! README.md not prepared for the same. 
+Appologize 🙏 !!!
