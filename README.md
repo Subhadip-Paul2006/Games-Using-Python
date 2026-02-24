@@ -7,7 +7,7 @@ Games Using Python
 |    1     | Single Tic Tac Toe | ✅ Completed   |     Subh      |
 |    2     | Snake Game         | ✅ Completed   |Subh & Abhishek|
 |    3     | Multi Tic Tac Toe  | 🚧 In Progress |Subh & Abhishek|
-|    4     | Flappy Bird        | ✅ Completed   |    Abhishek   |
+|    4     | Flappy Bird        | ✅ Completed   |Abhishek & Samhita & Ayan|
 |    5     | Pong Game          | ⏳ Planned     |Subh & Abhishek|
 
 #Remember reading the README.md file in each projects before using it.
