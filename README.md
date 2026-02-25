@@ -1,6 +1,7 @@
 # Games-Using-Python
 Games Using Python
 ## 🎮 Game Status
+#Remember reading the README.md file in each projects before using it.
 
 |  Number  |     Game           |      Status    | With Love From |
 |----------|--------------------|----------------|----------------|
@@ -10,5 +11,4 @@ Games Using Python
 |    4     | Flappy Bird        | ✅ Completed   |Abhishek & Samhita|
 |    5     | Pong Game          | ⏳ Planned     |Subh & Abhishek|
 
-#Remember reading the README.md file in each projects before using it.
-Finally, A ready to use application of multiple games made with Python. Tools: React Native, Android Studio, Python...
+Finally, at last A ready to use application of multiple games made with Python. Tools: React Native, Android Studio, Python...
