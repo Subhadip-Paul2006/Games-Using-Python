@@ -5,7 +5,7 @@ A classic **Snake Game** built using **Python**, created as part of my *Games Us
 ---
 
 ## 📌 Project Status
-🚧 **In Progress**
+✅ **Complete**
 
 ---
 
