@@ -30,11 +30,13 @@ The goal is to eat food, grow longer, and avoid colliding with the walls or itse
 ---
 
 ## 📂 Project Structure
+```bash
 Snake Game
 │
 ├── snake_game.py
 ├── requirements.txt
 └── README.md
+```
 
 
 ---
