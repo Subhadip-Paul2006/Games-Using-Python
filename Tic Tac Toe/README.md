@@ -1,4 +1,4 @@
-\# 🎮 Tic Tac Toe – Single Player (Python + PyGame)
+# 🎮 Tic Tac Toe – Single Player (Python + PyGame)
 
 
 
@@ -10,7 +10,7 @@ This is a \*\*Single Player Tic Tac Toe game\*\* built using \*\*Python and PyGa
 
 
 
-\## 📌 Basic Information
+## 📌 Basic Information
 
 
 
@@ -30,7 +30,7 @@ This is a \*\*Single Player Tic Tac Toe game\*\* built using \*\*Python and PyGa
 
 
 
-\## 🎯 Game Objective
+## 🎯 Game Objective
 
 
 
@@ -52,7 +52,7 @@ before the game ends.
 
 
 
-\## 🎮 Playing Rules
+## 🎮 Playing Rules
 
 
 
@@ -74,7 +74,7 @@ before the game ends.
 
 
 
-\## 🛠️ Requirements
+## 🛠️ Requirements
 
 
 
@@ -90,13 +90,11 @@ before the game ends.
 
 
 
-\## ▶️ How to Run the Game
+## ▶️ How to Run the Game
 
 
 
 ```bash
-
 pip install -r requirements.txt
-
 python main.py
-
+```
