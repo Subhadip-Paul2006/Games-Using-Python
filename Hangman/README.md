@@ -53,13 +53,12 @@ Hangman is a classic word guessing game where:
 ## 🔄 User Flow
 
 ```mermaid
-flowchart TD
+flowchart LR
 
 A[Start Game] --> B[Random Word Selected]
-
 B --> C[Player Guesses Letter]
 
-C --> D{Is Guess Correct?}
+C --> D{Correct Guess?}
 
 D -->|Yes| E[Reveal Letter]
 E --> F{Word Completed?}
@@ -70,18 +69,17 @@ F -->|No| C
 D -->|No| H[Add Hangman Part]
 H --> I{Hangman Complete?}
 
-I -->|No| C
 I -->|Yes| J[LOSE]
+I -->|No| C
 
 G --> K[Game Over Screen]
 J --> K
 
-K --> L{Choose Option}
+K --> L{Play Again?}
 
-L -->|Play Again| A
+L -->|Yes| A
 L -->|Exit| M[Close Game]
 ```
-
 ---
 
 ## 🏗 Architecture Overview
