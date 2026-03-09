@@ -9,14 +9,14 @@ This project focuses on **clean UI, keyboard interaction, sound feedback, and st
 
 ## 🖼 Demo
 
-<div align="center">
+<div>
 
 <img src="Demo01.png" width="380"/> 
 <img src="Demo02.png" width="380"/>
 
 <br><br>
 
-<img src="Demo03.png" width="380"/>
+<img src="Demo03.png" width="420"/>
 
 </div>
 
