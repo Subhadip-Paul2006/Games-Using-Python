@@ -13,16 +13,15 @@ Each project focuses on learning concepts like:
 
 ---
 
-## 🎮 Game Status
-#Remember reading the README.md file in each projects before using it.
+## 🎯 Project Status
 
-|  Number  |     Game           |      Status    | With Love From |
-|----------|--------------------|----------------|----------------|
-|    1     | Single Tic Tac Toe | ✅ Completed   |     Subh      |
-|    2     | Snake Game         | ✅ Completed   |Subh & Abhishek|
-|    3     | Multi Tic Tac Toe  | 🚧 In Progress |Subh & Abhishek|
-|    4     | Flappy Bird        | ✅ Completed   |Abhishek & Samhita|
-|    5     | Pong Game          | ⏳ Planned     |Subh & Abhishek|
-|    6     | Hangman            | ✅ Completed   |     Subh      |
+| # | Game | Status | Developed By |
+|---|------|--------|--------------|
+| 1 | Tic Tac Toe | ✅ Completed | Subh |
+| 2 | Snake Game | ✅ Completed | Subh & Abhishek |
+| 3 | Multi Tic Tac Toe | 🚧 In Progress | Subh & Abhishek |
+| 4 | Flappy Bird | ✅ Completed | Abhishek & Samhita |
+| 5 | Pong Game | 📌 Planned | Subh & Abhishek |
+| 6 | Hangman | ✅ Completed | Subh |
 
 Finally, at last a ready to use application of multiple games made with Python. Tools: React Native, Android Studio, Python...
