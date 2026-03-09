@@ -1,5 +1,18 @@
-# Games-Using-Python
-Games Using Python
+# 🎮 Games Using Python
+
+A collection of classic games built using **Python** to practice game logic, UI design, and interactive programming.
+
+Each project focuses on learning concepts like:
+- Game loops
+- Event handling
+- Rendering graphics
+- Keyboard & mouse interactions
+- Modular project structure
+
+> ⚠️ Please read the **README.md inside each game folder** before running the project.
+
+---
+
 ## 🎮 Game Status
 #Remember reading the README.md file in each projects before using it.
 
