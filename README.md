@@ -43,3 +43,10 @@ Guess the hidden word before the hangman drawing completes.
 ### 🏓 Pong (Upcoming)
 Two-player paddle game inspired by the classic arcade.
 
+---
+
+## 🚀 Goal of This Repository
+
+This repository is a personal project to explore **game development using Python** by recreating classic games.
+Each game demonstrates different concepts of programming, UI rendering, and interactive gameplay.
+More games will continue to be added as the project grows.
