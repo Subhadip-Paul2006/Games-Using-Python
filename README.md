@@ -1,23 +1,38 @@
 # 🎮 Games Using Python
 
-A collection of classic games built using **Python** to practice game logic, UI design, and interactive programming.
+## 🚀 Project Vision
 
-Each project focuses on learning concepts like:
-- Game loops
-- Event handling
-- Rendering graphics
-- Keyboard & mouse interactions
-- Modular project structure
+The long-term goal of this repository is to build a **single platform (Web App / Android App)** that hosts multiple classic games developed using Python.
 
-> ⚠️ Please read the **README.md inside each game folder** before running the project.
+These games are currently being built and tested individually.  
+In the future, they will be integrated into a **centralized gaming application** where users can:
+
+- Browse and play multiple classic games
+- Access games from a single interface
+- Experience smooth and interactive gameplay
+- Enjoy a lightweight casual gaming platform
+
+This repository serves as the **development and experimentation ground** for those games before they are integrated into the final application.
 
 ---
 
-## 🎯 Project Status
+## 🗺️ Roadmap
+
+- ✅ Develop individual games using Python
+- 🚧 Improve UI and gameplay experience
+- 📦 Organize games into a modular structure
+- 🌐 Build a **Web Application** to host all games
+- 📱 Develop an **Android App** version of the platform
+
+---
+
+## 🎮 Game Status
+
+> ⚠️ Please read the `README.md` inside each project folder before running the game.
 
 | # | Game | Status | Developed By |
 |---|------|--------|--------------|
-| 1 | Tic Tac Toe | ✅ Completed | Subh |
+| 1 | Single Tic Tac Toe | ✅ Completed | Subh |
 | 2 | Snake Game | ✅ Completed | Subh & Abhishek |
 | 3 | Multi Tic Tac Toe | 🚧 In Progress | Subh & Abhishek |
 | 4 | Flappy Bird | ✅ Completed | Abhishek & Samhita |
