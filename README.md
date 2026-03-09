@@ -24,4 +24,22 @@ Each project focuses on learning concepts like:
 | 5 | Pong Game | 📌 Planned | Subh & Abhishek |
 | 6 | Hangman | ✅ Completed | Subh |
 
-Finally, at last a ready to use application of multiple games made with Python. Tools: React Native, Android Studio, Python...
+---
+
+## 🕹️ Games Included
+
+### 🟦 Tic Tac Toe
+Classic strategy game played on a 3×3 grid.
+
+### 🐍 Snake Game
+Control the snake, eat food, and grow longer while avoiding collisions.
+
+### 🐦 Flappy Bird
+Navigate the bird through pipes without crashing.
+
+### 🔤 Hangman
+Guess the hidden word before the hangman drawing completes.
+
+### 🏓 Pong (Upcoming)
+Two-player paddle game inspired by the classic arcade.
+
