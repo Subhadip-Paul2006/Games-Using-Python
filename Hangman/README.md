@@ -7,16 +7,20 @@ This project focuses on **clean UI, keyboard interaction, sound feedback, and st
 
 ---
 
-# 🖼 Demo
+## 🖼 Demo
 
-### Start Screen
-![Demo 1](Demo01.png)
+<div align="center">
 
-### Gameplay
-![Demo 2](Demo02.png)
+<b>Start Screen</b><br>
+<img src="Demo01.png" width="380"/>
 
-### Game Result
-![Demo 3](Demo03.png)
+<b>Gameplay</b><br>
+<img src="Demo02.png" width="380"/>
+
+<b>Game Result</b><br>
+<img src="Demo03.png" width="380"/>
+
+</div>
 
 ---
 
