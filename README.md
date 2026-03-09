@@ -28,19 +28,19 @@ Each project focuses on learning concepts like:
 
 ## 🕹️ Games Included
 
-### 🟦 Tic Tac Toe
+- ### 🟦 Tic Tac Toe
 Classic strategy game played on a 3×3 grid.
 
-### 🐍 Snake Game
+- ### 🐍 Snake Game
 Control the snake, eat food, and grow longer while avoiding collisions.
 
-### 🐦 Flappy Bird
+- ### 🐦 Flappy Bird
 Navigate the bird through pipes without crashing.
 
-### 🔤 Hangman
+- ### 🔤 Hangman
 Guess the hidden word before the hangman drawing completes.
 
-### 🏓 Pong (Upcoming)
+- ### 🏓 Pong (Upcoming)
 Two-player paddle game inspired by the classic arcade.
 
 ---
