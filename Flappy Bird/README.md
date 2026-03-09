@@ -25,7 +25,7 @@ A simple Flappy Bird clone built using Python and Pygame.
 
 ## 🛠 Requirements
 
-Python 3.14
+Python 3.14     
 Pygame library
 
 ---
