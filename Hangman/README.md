@@ -10,13 +10,13 @@ This project focuses on **clean UI, keyboard interaction, sound feedback, and st
 # 🖼 Demo
 
 ### Start Screen
-![Demo 1](demo01.png)
+![Demo 1](Demo01.png)
 
 ### Gameplay
-![Demo 2](demo02.png)
+![Demo 2](Demo02.png)
 
 ### Game Result
-![Demo 3](demo03.png)
+![Demo 3](Demo03.png)
 
 ---
 
