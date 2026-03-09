@@ -11,13 +11,11 @@ This project focuses on **clean UI, keyboard interaction, sound feedback, and st
 
 <div align="center">
 
-<b>Start Screen</b><br>
-<img src="Demo01.png" width="380"/>
-
-<b>Gameplay</b><br>
+<img src="Demo01.png" width="380"/> 
 <img src="Demo02.png" width="380"/>
 
-<b>Game Result</b><br>
+<br><br>
+
 <img src="Demo03.png" width="380"/>
 
 </div>
