@@ -32,12 +32,12 @@ This repository serves as the **development and experimentation ground** for tho
 
 | # | Game | Status | Developed By |
 |---|------|--------|--------------|
-| 1 | Single Tic Tac Toe | ✅ Completed | Subh |
+| 1 | Single Tic Tac Toe | ✅ Completed | Subh & Sayan |
 | 2 | Snake Game | ✅ Completed | Subh & Abhishek |
 | 3 | Multi Tic Tac Toe | 🚧 In Progress | Subh & Abhishek |
 | 4 | Flappy Bird | ✅ Completed | Abhishek & Samhita |
 | 5 | Pong Game | 📌 Planned | Subh & Abhishek |
-| 6 | Hangman | ✅ Completed | Subh |
+| 6 | Hangman | ✅ Completed | Subh & Sayan |
 
 ---
 
