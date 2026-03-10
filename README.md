@@ -32,6 +32,7 @@ This repository serves as the **development and experimentation ground** for tho
 
 | # | Game | Status | Developed By |
 |---|------|--------|--------------|
+
 | 1 | Single Tic Tac Toe | ✅ Completed | Subh & Sayan |
 | 2 | Snake Game | ✅ Completed | Subh & Abhishek |
 | 3 | Multi Tic Tac Toe | 🚧 In Progress | Subh & Abhishek |
