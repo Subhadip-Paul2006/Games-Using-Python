@@ -4,7 +4,10 @@
 
 The long-term goal of this repository is to build a **single platform (Web App / Android App)** that hosts multiple classic games developed using Python.
 
-These games are currently being built and tested individually.  
+These games are currently being built and tested individuall
+
+
+y.  
 In the future, they will be integrated into a **centralized gaming application** where users can:
 
 - Browse and play multiple classic games
