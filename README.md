@@ -12,7 +12,8 @@ In the future, they will be integrated into a **centralized gaming application**
 - Experience smooth and interactive gameplay
 - Enjoy a lightweight casual gaming platform
 
-This repository serves as the **development and experimentation ground** for those games before they are integrated into the final application.
+This repository serves as the **development and experimentation ground** for those games be
+fore they are integrated into the final application.
 
 ---
 
