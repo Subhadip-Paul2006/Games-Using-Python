@@ -37,7 +37,7 @@ This repository serves as the **development and experimentation ground** for tho
 | 3 | Flappy Bird | ✅ Completed | Abhishek & Samhita |
 | 4 | Pong Game | 📌 Planned | Subh & Abhishek |
 | 5 | Hangman | ✅ Completed | Subh & Sayan |
-| 6 | MineSneeker |🚧 In Progress | Subh & Sayan |
+| 6 | MineSneeker |✅ Completed | Subh & Sayan |
 
 ---
 
@@ -50,6 +50,9 @@ Navigate the bird through pipes without crashing.
 
 - ### 🔤 Hangman
 Guess the hidden word before the hangman drawing completes.
+
+- ### 🔤 MineSneeker
+Guess the Mine, ands your game's Over...
 
 - ### 🏓 Pong (Upcoming)
 Two-player paddle game inspired by the classic arcade.
