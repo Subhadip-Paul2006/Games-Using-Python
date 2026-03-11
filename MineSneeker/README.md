@@ -134,6 +134,13 @@ git clone https://github.com/Subhadip-Paul2006/Games-Using-Python.git
 cd Games-Using-Python/MineSneeker
 ```
 
+### 3️⃣ Install dependencies
+
+```bash
+pip install pygame
+pip insatall tinkter
+```
+
 ### 3️⃣ Run the Game
 
 ```
