@@ -38,6 +38,7 @@ This repository serves as the **development and experimentation ground** for tho
 | 4 | Flappy Bird | ✅ Completed | Abhishek & Samhita |
 | 5 | Pong Game | 📌 Planned | Subh & Abhishek |
 | 6 | Hangman | ✅ Completed | Subh & Sayan |
+| 7 | MineSneeker |🚧 In Progress | Subh & Sayan |
 
 ---
 
