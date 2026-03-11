@@ -141,7 +141,7 @@ pip install pygame
 pip insatall tinkter
 ```
 
-### 3️⃣ Run the Game
+### 4️⃣ Run the Game
 
 ```
 python main.py
