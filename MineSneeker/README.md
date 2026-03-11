@@ -31,15 +31,18 @@ The game also includes a **score tracking system**, allowing players to compete 
 
 ## 🧠 User Flow
 
+## 🔄 User Flow
+
 ```mermaid
-flowchart TD
+flowchart LR
 
 A[Start Game] --> B[Enter Player Name]
-B --> C[Select Difficulty Mode]
-C --> D[Generate Game Board]
-D --> E[Player Clicks Tiles]
+B --> C[Select Game Mode / Difficulty]
+C --> D[Generate Mine Board]
 
-E -->|Safe Tile| F[Reveal Number]
+D --> E[Player Clicks a Tile]
+
+E -->|Safe Tile| F[Reveal Number of Nearby Mines]
 E -->|Mine Clicked| G[Game Over]
 
 F --> H{All Safe Tiles Revealed?}
@@ -48,13 +51,16 @@ H -->|No| E
 H -->|Yes| I[Player Wins]
 
 I --> J[Calculate Score]
-J --> K[Compare with Highest Score]
+J --> K[Compare With Highest Score]
 K --> L[Store Score in Database]
 
-G --> M[Show Game Result]
+G --> M[Show Final Result]
 
-L --> N[Play Again or Exit]
+L --> N{Play Again?}
 M --> N
+
+N -->|Yes| C
+N -->|No| O[Exit Game]
 ```
 
 ---
