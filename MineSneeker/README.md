@@ -114,9 +114,9 @@ If the database fails to load, the game **continues without crashing**.
 ## 🛠 Tech Stack
 
 * **Python 3**
+* **PyGame**
 * **Tkinter (UI Framework)**
-* **SQLite (Database)**
-* **Object-Oriented Programming**
+* **PostgreSQL (Database)**
 
 ---
 
@@ -146,7 +146,6 @@ python main.py
 
 Planned improvements for the game:
 
-* 🔊 Sound effects
 * 🎨 UI improvements
 * ⏱ Timer based scoring system
 * 🌐 Online leaderboard
@@ -199,7 +198,7 @@ This project is open-source and available under the **MIT License**.
 
 ## 👨‍💻 Author
 
-**Subhadip Paul**
+**Subh**
 
 B.Tech Computer Science Student
 Exploring **Software Development, Game Development, and AI-powered systems**
