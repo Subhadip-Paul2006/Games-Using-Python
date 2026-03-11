@@ -32,23 +32,18 @@ This repository serves as the **development and experimentation ground** for tho
 
 | # | Game | Status | Developed By |
 |---|------|--------|--------------|
-| 1 | Single Tic Tac Toe | ✅ Completed | Subh & Sayan |
+| 1 | Tic Tac Toe | ✅ Completed | Subh & Abhishek |
 | 2 | Snake Game | ✅ Completed | Subh & Abhishek |
-| 3 | Multi Tic Tac Toe | 🚧 In Progress | Subh & Abhishek |
-| 4 | Flappy Bird | ✅ Completed | Abhishek & Samhita |
-| 5 | Pong Game | 📌 Planned | Subh & Abhishek |
-| 6 | Hangman | ✅ Completed | Subh & Sayan |
-| 7 | MineSneeker |🚧 In Progress | Subh & Sayan |
+| 3 | Flappy Bird | ✅ Completed | Abhishek & Samhita |
+| 4 | Pong Game | 📌 Planned | Subh & Abhishek |
+| 5 | Hangman | ✅ Completed | Subh & Sayan |
+| 6 | MineSneeker |🚧 In Progress | Subh & Sayan |
 
 ---
 
 ## 🕹️ Games Included
 
-- ### 🟦 Tic Tac Toe
-Classic strategy game played on a 3×3 grid.
-
-- ### 🐍 Snake Game
-Control the snake, eat food, and grow longer while avoiding collisions.
+- ### 🟦 Sie snake, eat food, and grow longer while avoiding collisions.
 
 - ### 🐦 Flappy Bird
 Navigate the bird through pipes without crashing.
