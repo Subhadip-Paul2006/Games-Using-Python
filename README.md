@@ -43,7 +43,8 @@ This repository serves as the **development and experimentation ground** for tho
 
 ## 🕹️ Games Included
 
-- ### 🟦 Sie snake, eat food, and grow longer while avoiding collisions.
+- ### 🟦 Snake Game
+Move the snake & beat the highest score...
 
 - ### 🐦 Flappy Bird
 Navigate the bird through pipes without crashing.
