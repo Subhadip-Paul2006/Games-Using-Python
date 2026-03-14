@@ -23,9 +23,9 @@ except ImportError:
 #  DATABASE CONFIGURATION
 # ═══════════════════════════════════════════════════════════════════════════
 DB_CONFIG = {
-    "host":     "localhost",
-    "port":     5432,
-    "user":     "postgres",
+    "host":     <Enter Yours>,
+    "port":     <Enter Yours>,
+    "user":     <Enter Yours>,
     "password": "subh06",
     "database": "minesweeper_db",
 }
