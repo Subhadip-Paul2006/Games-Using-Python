@@ -26,7 +26,7 @@ DB_CONFIG = {
     "host":     <Enter Yours>,
     "port":     <Enter Yours>,
     "user":     <Enter Yours>,
-    "password": "subh06",
+    "password": <Enter Yours>,
     "database": "minesweeper_db",
 }
 
