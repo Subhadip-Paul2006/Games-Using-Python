@@ -1,6 +1,7 @@
 # 🎮 Games Using Python
 
 ## 🚀 Project Vision
+
 The long-term goal of this repository is to build a **single platform (Web App / Android App)** that hosts multiple classic games developed using Python.
 
 These games are currently being built and tested individualy.  
