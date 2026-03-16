@@ -36,8 +36,9 @@ This repository serves as the **development and experimentation ground** for tho
 | 2 | Snake Game | ✅ Completed | Subh & Abhishek |
 | 3 | Flappy Bird | ✅ Completed | Abhishek & Samhita |
 | 4 | Pong Game | 📌 Planned | Subh & Abhishek |
-| 5 | Hangman | ✅ Completed | Subh & Sayan |
-| 6 | MineSneeker |✅ Completed | Subh & Sayan |
+| 5 | Hangman | ✅ Completed | Subh |
+| 6 | MineSneeker |✅ Completed | Subh |
+| 7 | Tic Tac Toe| In Progress | Subh |
 
 ---
 
