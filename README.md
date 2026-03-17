@@ -38,7 +38,7 @@ This repository serves as the **development and experimentation ground** for tho
 | 4 | Pong Game | 📌 Planned | Subh & Abhishek |
 | 5 | Hangman | ✅ Completed | Subh |
 | 6 | MineSneeker |✅ Completed | Subh |
-| 7 | Tic Tac Toe| In Progress | Subh |
+| 7 | Rock Paper Scissors | In Progress | Subh |
 
 ---
 
@@ -58,6 +58,9 @@ Just play it with ur partner, friend, parents and enjoy...
 
 - ### 🔤 MineSneeker
 Guess the Mine, ands your game's Over...
+
+- ### Rock Paper Scissors
+Experience palying rcok paper scissors virtually, in pc...
 
 - ### 🏓 Pong (Upcoming)
 Two-player paddle game inspired by the classic arcade.
