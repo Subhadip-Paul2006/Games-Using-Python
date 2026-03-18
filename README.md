@@ -10,7 +10,7 @@ In the future, they will be integrated into a **centralized gaming application**
 - Browse and play multiple classic games
 - Access games from a single interface
 - Experience smooth and interactive gameplay
-- Enjoy a lightweight casual gaming platform
+
 
 This repository serves as the **development and experimentation ground** for those games before they are integrated into the final application.
 
