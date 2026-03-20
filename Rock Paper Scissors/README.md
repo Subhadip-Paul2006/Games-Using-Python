@@ -52,18 +52,20 @@ This project uses the following technologies to function seamlessly:
 
 Here is a look at how the project files are organized:
 
-```text
-📦 Rock Paper Scissors
- ┣ 📂 Images                   # Contains all game assets, icons, and avatars
- ┃ ┣ 📜 Rockimg.jpg
- ┃ ┣ 📜 Paperimg.jpg
- ┃ ┣ 📜 Scissorsimg.jpg
- ┃ ┣ 📜 Screen01.png           ...and other GUI screenshots
- ┃ ┗ 📜 confeti.gif            ...etc.
- ┣ 📜 db_manager.py            # Centralized database connection and queries handler
- ┣ 📜 loginGame.py             # Alternative integrated auth & game logic implementation
- ┣ 📜 main.py                  # Primary entry point combining GUI screens and game flow
- ┗ 📜 setup_db.py              # Script to initialize the PostgreSQL tables
+```bash
+
+Rock Paper Scissors
+│
+├── Images                    # Contains all the gameassets & icons
+│   └── Rocking.png
+|   └── Paper.png
+|   └── Scissors.png
+|   └── Screens.png            ...and other GUI screenshots
+|   └── bot.png                ...etc.
+├── db_manager.py              # Centralized database connection and queries handler
+├── main.py                    # Primary entry point combining GUI screens and game flow                  
+|── logInGame.py               # Alternative integrated auth & game logic implementation
+└── README.md|
 ```
 
 ---
