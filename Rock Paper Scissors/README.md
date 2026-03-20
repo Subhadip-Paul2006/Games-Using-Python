@@ -124,27 +124,27 @@ Here is a visual walkthrough of the application:
 
 ### 2. Game Page
 <p align="center">
-  <img src="Images/Screen02.png" width="600" alt="Game Page">
+  <img src="Images/Screen02.png" width="300" alt="Game Page">
 </p>
 
 ### 3. Winner Output
 <p align="center">
-  <img src="Images/Screen03.png" width="600" alt="Winner Output">
+  <img src="Images/Screen03.png" width="300" alt="Winner Output">
 </p>
 
 ### 4. Lose Output
 <p align="center">
-  <img src="Images/Screen04.png" width="600" alt="Lose Output">
+  <img src="Images/Screen04.png" width="300" alt="Lose Output">
 </p>
 
 ### 5. Tied Output
 <p align="center">
-  <img src="Images/Screen05.png" width="600" alt="Tied Output">
+  <img src="Images/Screen05.png" width="300" alt="Tied Output">
 </p>
 
 ### 6. Leaderboards
 <p align="center">
-  <img src="Images/Screen06.png" width="600" alt="Leaderboards">
+  <img src="Images/Screen06.png" width="300" alt="Leaderboards">
 </p>
 
 ---
