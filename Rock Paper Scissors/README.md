@@ -212,6 +212,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 **Rock Paper Scissors Ultra Project**
 
-Designed and Developed by **[@Subhadip-Paul2006]**
+Designed and Developed by **Subh06**
 
 Feel free to reach out with improvements, feedback, or collaborations!
