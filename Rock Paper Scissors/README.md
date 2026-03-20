@@ -117,19 +117,11 @@ The game logic is built around standard Rock-Paper-Scissors rules mixed with ses
 
 Here is a visual walkthrough of the application:
 
-<p align="center">
-  <img src="Images/Screen01.png" width="200"><br>
-  <b>1. Login Page</b>
-</p>
+## 📸 Screenshots
 
-<p align="center">
-  <img src="Images/Screen02.png" width="200">
-  <img src="Images/Screen03.png" width="200">
-  <img src="Images/Screen04.png" width="200">
-  <img src="Images/Screen05.png" width="200">
-  <img src="Images/Screen06.png" width="200"><br>
-  <b>2. Game Page & Outputs (Win / Lose / Tie / Leaderboard)</b>
-</p>
+| 1. Login Page | 2. Game Page | 3. Winner Output | 4. Lose Output | 5. Tied Output | 6. Leaderboard |
+|--------------|--------------|------------------|----------------|----------------|----------------|
+| <img src="Images/Screen01.png" width="200"> | <img src="Images/Screen02.png" width="200"> | <img src="Images/Screen03.png" width="200"> | <img src="Images/Screen04.png" width="200"> | <img src="Images/Screen05.png" width="200"> | <img src="Images/Screen06.png" width="200"> |
 ---
 
 ## ⚙️ Installation & Setup
