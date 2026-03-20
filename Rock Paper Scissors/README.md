@@ -90,25 +90,33 @@ The game logic is built around standard Rock-Paper-Scissors rules mixed with ses
 
 ## 🔄 User Flow
 
-```text
-[Start Application]
-       ↓
-[Login / Sign Up Page] ──(New User)──> [Register Account & Initialize DB Stats]
-       ↓
-[Welcome Screen] (Displays User Avatar vs Computer)
-       ↓
-[Game Screen] (Play Rounds / Best of 'x')
-       ↓
-[Result Popup] ──> Calculates Series ──> Updates PostgreSQL Database
-(Win/Lose/Tie)
-       ↓
-    [Options] ──────────────┐
-       │                    │
-       ├─> [Play Again] ────┘ (Loops back to Game Screen)
-       │
-       ├─> [Leaderboard Screen] (View Top Placements & Switch Themes)
-       │
-       └─> [Logout / Exit]
+```mermaid
+flowchart TD
+
+A[Start Application] --> B[Login / Sign Up Page]
+
+B -->|New User| C[Register Account & Initialize DB]
+B -->|Existing User| D[Welcome Screen]
+
+C --> D
+
+D --> E[Game Screen]
+
+E --> F[Result Popup]
+
+F --> G{Result Type}
+
+G -->|Win| H[Update DB - Win]
+G -->|Lose| I[Update DB - Lose]
+G -->|Tie| J[Update DB - Tie]
+
+H --> K[Options]
+I --> K
+J --> K
+
+K -->|Play Again| E
+K -->|Leaderboard| L[Leaderboard Screen]
+K -->|Logout| M[Exit Application]
 ```
 
 ---
