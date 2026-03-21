@@ -38,7 +38,7 @@ This repository serves as the **development and experimentation ground** for tho
 | 4 | Pong Game | 📌 Planned | Subh & Abhishek |
 | 5 | Hangman | ✅ Completed | Subh |
 | 6 | MineSneeker |✅ Completed | Subh |
-| 7 | Rock Paper Scissors | In Progress | Subh |
+| 7 | Rock Paper Scissors | ✅ Completed | Subh |
 
 ---
 
