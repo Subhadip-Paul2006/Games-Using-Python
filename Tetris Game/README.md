@@ -1,7 +1,7 @@
-# 🧱 Python PyGame Tetris
-A sleek, modern, and highly-commented clone of the classic Tetris game built in Python using the **PyGame** library. 
+<h1 align = "center"># 🧱 Python PyGame Tetris</h1>
+<h3 align = "center">A sleek, modern, and highly-commented clone of the classic Tetris game built in Python using the **PyGame** library. 
 
-This project features dynamic procedural audio, 3D glossy block rendering, customizable neon color palettes, and comprehensive per-line documentation designed specifically for beginners learning game development!
+This project features dynamic procedural audio, 3D glossy block rendering, customizable neon color palettes, and comprehensive per-line documentation designed specifically for beginners learning game development!</h3>
 
 ---
 <p align="center">
