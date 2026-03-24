@@ -39,6 +39,7 @@ This repository serves as the **development and experimentation ground** for tho
 | 5 | Hangman | ✅ Completed | Subh |
 | 6 | MineSneeker |✅ Completed | Subh |
 | 7 | Rock Paper Scissors | ✅ Completed | Subh |
+| 8 | Tetris Game | ✅ Completed | Subh |
 
 ---
 
