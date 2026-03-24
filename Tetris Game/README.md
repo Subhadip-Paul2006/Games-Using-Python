@@ -129,7 +129,10 @@ Clone your newly forked repository down to your machine, make your graphical or 
 git commit -am "Added my own cool feature!"
 git push
 ```
-Submit a Pull Request and your additions might become part of the official game!
+## 👨‍💻 Author
 
----
-*Built originally by Pavel Benáček as open-source software under the GNU General Public License v3.*
+**Rock Paper Scissors Ultra Project**
+
+Designed and Developed by **Subh06**
+
+Feel free to reach out with improvements, feedback, or collaborations!
