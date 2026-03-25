@@ -45,7 +45,7 @@ This repository serves as the **development and experimentation ground** for tho
 
 ## 🕹️ Games Included
 
-- ### 🟦 Snake Game
+- ### 🐍 Snake Game
 Move the snake & beat the highest score...
 
 - ### 🐦 Flappy Bird
@@ -54,17 +54,20 @@ Navigate the bird through pipes without crashing.
 - ### 🔤 Hangman
 Guess the hidden word before the hangman drawing completes.
 
-- ### Tic Rac Toe
+- ### ⭕❌ Tic Rac Toe
 Just play it with ur partner, friend, parents and enjoy...
 
-- ### 🔤 MineSneeker
+- ### 💣 MineSneeker
 Guess the Mine, ands your game's Over...
 
-- ### Rock Paper Scissors
+- ### 🪨📃✂️ Rock Paper Scissors
 Experience playing rcok paper scissors virtually, in pc...
 
 - ### 🏓 Pong (Upcoming)
 Two-player paddle game inspired by the classic arcade.
+
+- ### 🧱 Tersis Game
+Place the upcomming blocks in correct places.... 
 
 ---
 
