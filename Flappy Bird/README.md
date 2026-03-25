@@ -174,4 +174,3 @@ Developed with 💙 by:
 
 - **Abhishek Dutta**
 - **Samhita Mondal**
-- **EnrGHacker**
