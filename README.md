@@ -76,4 +76,4 @@ Place the upcoming blocks in correct places....
 This repository is a personal project to explore **game development using Python** by recreating classic games.
 Each game demonstrates different concepts of programming, UI rendering, and interactive gameplay.
 More games will continue to be added as the project grows.<br>
-Ultimately, the aim is to build a **complete multi-game platform** where users can enjoy several classic games from a single **Web or Android application**.
+Ultimately, the aim is to build a **complete multi-game platform** where users can enjoy several classic games from a single **Web or Android application** and learn from it.
