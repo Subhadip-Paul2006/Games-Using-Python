@@ -34,7 +34,7 @@ The game also includes a **score tracking system**, allowing players to compete 
 ## 🔄 User Flow
 
 ```mermaid
-flowchart LR
+Game controls 
 
 A[Start Game] --> B[Enter Player Name]
 B --> C[Select Game Mode / Difficulty]
