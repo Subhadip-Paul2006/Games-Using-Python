@@ -2,7 +2,7 @@
 
 
 
-This is a \*\*Single Player Tic Tac Toe game\*\* built using \*\*Python and PyGame\*\*, with \*\*database integration\*\* for storing game-related data.
+This is a **Single Player Tic Tac Toe game** built using **Python and PyGame**, with **database integration** for storing game-related data.
 
 
 
