@@ -54,7 +54,7 @@ Navigate the bird through pipes without crashing.
 - ### 🔤 Hangman
 Guess the hidden word before the hangman drawing completes.
 
-- ### ⭕❌ Tic Rac Toe
+- ### ⭕❌ Tic Tac Toe
 Just play it with your partner, friend, parents and enjoy...
 
 - ### 💣 MineSneeker
