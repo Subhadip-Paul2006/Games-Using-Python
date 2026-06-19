@@ -22,7 +22,7 @@
 │   Individual Python Games  ──►  Modular Core  ──►  Platform    │
 │   (Snake, Flappy, Tetris,       (shared UI,       (Web App +   │
 │    RPS, Hangman, Mines,          leaderboard,     Android App) │
-│    Tic-Tac-Toe, Pong)            login, theme)                  │
+│    Tic-Tac-Toe, Pong)            login, theme)                 │
 │                                                                │
 └────────────────────────────────────────────────────────────────┘
 ```
