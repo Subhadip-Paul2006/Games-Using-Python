@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🧱 Python PyGame Tetris
 
 <p align="center">
@@ -11,8 +12,18 @@
 A sleek, modern, and **highly-commented** clone of the classic **Tetris** game built in Python using the **PyGame** library.
 
 This project features dynamic **procedural audio**, **3D glossy block rendering**, customizable **neon color palettes**, and comprehensive per-line documentation designed specifically for beginners learning game development.
+=======
+<h1 align = "center"> 🧱 Python PyGame Tetris</h1>
+<h4 align = "center">A sleek, modern, and highly-commented clone of the classic Tetris game built in Python using the **PyGame** library. 
+
+This project features dynamic procedural audio, 3D glossy block rendering, customizable neon color palettes, and comprehensive per-line documentation designed specifically for beginners learning game development!</h4>
+>>>>>>> 10c6cd1ab7414573c76a973de62db78ef1919acf
 
 ---
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python Badge"/>
+  <img src="https://img.shields.io/badge/Tkinter-000000?style=for-the-badge&logo=python&logoColor=white" alt="Tkinter Badge"/>
+</p>
 
 ## 🚀 Features
 
@@ -314,6 +325,7 @@ If you wish to upload your own improvements, navigate to the GitHub repository p
 git commit -am "Added my own cool feature!"
 git push
 ```
+<<<<<<< HEAD
 
 Submit a Pull Request — your additions might become part of the official game!
 
@@ -338,3 +350,12 @@ pie title Approx. Lines of Code per Module
 <p align="center">
   🧱 Block by block, line by line.
 </p>
+=======
+## 👨‍💻 Author
+
+**Rock Paper Scissors Ultra Project**
+
+Designed and Developed by **Subh06**
+
+Feel free to reach out with improvements, feedback, or collaborations!
+>>>>>>> 10c6cd1ab7414573c76a973de62db78ef1919acf

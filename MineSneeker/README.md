@@ -78,11 +78,15 @@ pie title Mine Density by Difficulty
 ## 🔄 User Flow
 
 ```mermaid
+<<<<<<< HEAD
 flowchart LR
     A([🚀 Start App]) --> B[Enter Player Name]
     B --> C[Select Game Mode / Difficulty]
     C --> D[Generate Mine Board]
     D --> E[Player Clicks a Tile]
+=======
+Game controls 
+>>>>>>> 10c6cd1ab7414573c76a973de62db78ef1919acf
 
     E -- "Safe Tile" --> F[Reveal Number of Nearby Mines]
     F --> G{All Safe Tiles Revealed?}

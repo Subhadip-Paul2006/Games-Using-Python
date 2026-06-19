@@ -4,6 +4,7 @@ from db_manager import DBManager
 
 pygame.init()
 
+#Canvas
 WIDTH, HEIGHT = 600, 700
 BG_COLOR = (28, 170, 156)
 LINE_COLOR = (23, 145, 135)

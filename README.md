@@ -82,6 +82,7 @@ gantt
 
 > ⚠️ Please read the `README.md` inside each project folder before running the game.
 
+<<<<<<< HEAD
 | # | Game | Status | Developed By | Engine | Database |
 |---|------|:------:|--------------|--------|:--------:|
 | 1 | 🟦 Tic Tac Toe | ✅ Completed | Subh & Abhishek | PyGame | ✅ |
@@ -100,11 +101,24 @@ pie title Repository Completion
     "Completed Games" : 7
     "Planned Games"   : 1
 ```
+=======
+| # | Game | Status | Developed By |
+|---|------|--------|--------------|
+| 1 | Tic Tac Toe | ✅ Completed | Subh & Abhishek |
+| 2 | Snake Game | ✅ Completed | Subh & Abhishek |
+| 3 | Flappy Bird | ✅ Completed | Abhishek & Samhita |
+| 4 | Pong Game | 📌 Planned | Subh & Abhishek |
+| 5 | Hangman | ✅ Completed | Subh |
+| 6 | MineSneeker |✅ Completed | Subh |
+| 7 | Rock Paper Scissors | ✅ Completed | Subh |
+| 8 | Tetris Game | ✅ Completed | Subh |
+>>>>>>> 10c6cd1ab7414573c76a973de62db78ef1919acf
 
 ---
 
 ## 🎮 Games Included
 
+<<<<<<< HEAD
 ```mermaid
 mindmap
   root((Games Using Python))
@@ -121,6 +135,10 @@ mindmap
       Snake Game
       Pong (upcoming)
 ```
+=======
+- ### 🐍 Snake Game
+Move the snake & beat the highest score...
+>>>>>>> 10c6cd1ab7414573c76a973de62db78ef1919acf
 
 ### 🟦 Snake Game
 Move the snake & beat the highest score. Bonus food appears randomly with a pulsing gold glow.
@@ -128,6 +146,7 @@ Move the snake & beat the highest score. Bonus food appears randomly with a puls
 ### 🐦 Flappy Bird
 Navigate the bird through pipes without crashing. Coins drop between pipes for extra points.
 
+<<<<<<< HEAD
 ### 🔤 Hangman
 Guess the hidden word before the hangman drawing completes. Modern dark-themed UI with on-screen keyboard.
 
@@ -136,6 +155,16 @@ Just play it with your partner, friend, parents and enjoy... Single-player PyGam
 
 ### 💣 MineSneeker
 Guess the mine, and your game is over. Multiple difficulty modes and persistent leaderboard.
+=======
+- ### ⭕❌ Tic Tac Toe
+Just play it with your partner, friend, parents and enjoy...
+
+- ### 💣 MineSneeker
+Guess the Mine, and your game's Over...
+
+- ### 🪨📃✂️ Rock Paper Scissors
+Experience playing rock paper scissors virtually, in pc...
+>>>>>>> 10c6cd1ab7414573c76a973de62db78ef1919acf
 
 ### ✊ Rock Paper Scissors
 Experience playing rock paper scissors virtually on PC. Includes login, series gameplay and global leaderboard.
@@ -145,6 +174,9 @@ A polished PyGame Tetris with procedural sound, neon palettes and 3D beveled blo
 
 ### 🏓 Pong (Upcoming)
 Two-player paddle game inspired by the classic arcade.
+
+- ### 🧱 Tetris Game
+Place the upcoming blocks in correct places.... 
 
 ---
 
@@ -265,6 +297,7 @@ pie title Lines of Code per Game (approx.)
 
 ## 🚀 Goal of This Repository
 
+<<<<<<< HEAD
 This repository is a personal project to explore **game development using Python** by recreating classic games. Each game demonstrates different concepts of programming, UI rendering, and interactive gameplay. More games will continue to be added as the project grows.
 
 > Ultimately, the aim is to build a **complete multi-game platform** where users can enjoy several classic games from a single **Web or Android application**.
@@ -302,3 +335,9 @@ Distributed under the **MIT License**. See `LICENSE` for more information.
 <p align="center">
   Built with ❤️ by <a href="https://github.com/Subhadip-Paul2006">Subhadip Paul</a> and contributors.
 </p>
+=======
+This repository is a personal project to explore **game development using Python** by recreating classic games.
+Each game demonstrates different concepts of programming, UI rendering, and interactive gameplay.
+More games will continue to be added as the project grows.<br>
+Ultimately, the aim is to build a **complete multi-game platform** where users can enjoy several classic games from a single **Web or Android application** and learn from it.
+>>>>>>> 10c6cd1ab7414573c76a973de62db78ef1919acf
