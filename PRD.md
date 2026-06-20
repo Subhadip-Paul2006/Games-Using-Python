@@ -41,11 +41,144 @@
 
 ### 1.1 Market Context
 
-The casual mobile gaming market in India is paradoxically both saturated and underserved. On the supply side, the Play Store lists more than 500,000 casual titles, yet a clear pattern emerges: the top 1% (Roblox, Subway Surfers, Candy Crush) consume 90% of attention and revenue, while the long tail of arcade classics — Snake, Tetris, Solitaire, Minesweeper, Flappy Bird-style reflex games — is dominated by ad-cluttered ports from 2014 or by web aggregators (Poki, CrazyGames, Y8) that fail on three critical dimensions: **no offline play, no native device integration, and no persistent identity**. Casual D1 retention (the share of users who come back the day after install) sits at 25–30% and D7 (the share who come back on day seven) is below 8% across the category, which means every day that a player does not return, the title loses a chunk of its installed base. Compounding this, India eCPM (effective cost per thousand ad impressions) of $1–3 for rewarded video means monetization is fragile, and heavy interstitials (full-screen ads that interrupt gameplay) destroy the experience in a region where most users are still on sub-$200 Android devices. Google's own Google Play Games service deprecated its multiplayer APIs in 2019 and "instant play" in December 2025, signaling that platform-level casual-game infrastructure is permanently unstable. The opportunity is therefore structural, not stylistic: there is room for a small, opinionated, *offline-first* multi-game app that treats identity, leaderboards, and progression as platform primitives, not per-game overhead.
+The casual mobile gaming market in India is **saturated on supply, underserved on quality**.
+
+```mermaid
+flowchart LR
+    A[Play Store: 500K+ casual titles] --> B[Top 1% Roblox Subway Candy Crush = 90% revenue]
+    B --> C[Long tail = ad-cluttered ports]
+    C --> D[Web aggregators Poki CrazyGames Y8]
+    D --> E[No offline + No native + No identity]
+    E --> F[Structural gap: room for a small opinionated native app]
+    style F fill:#fbb,stroke:#c33
+```
+
+**The three structural problems with the long tail:**
+
+- ❌ **No offline play** — web aggregators fail the moment the train enters a tunnel
+- ❌ **No native integration** — touch latency, no haptic feedback, no install prompts
+- ❌ **No persistent identity** — leaderboards reset every session
+
+**Retention benchmarks (casual mobile, India, 2024-2025):**
+
+```mermaid
+xychart-beta
+    title "Casual Mobile D1/D7 Retention — India"
+    x-axis ["D1", "D7", "D30"]
+    y-axis "% Retention" 0 --> 40
+    bar [28, 8, 2.5]
+```
+
+| Metric | Category Median | Top Quartile | Our Target (Y1) |
+|---|---:|---:|---:|
+| **D1 retention** | 25–30% | 38% | **42%** |
+| **D7 retention** | <8% | 12% | **22%** |
+| **D30 retention** | <3% | 5% | **9%** |
+
+**Monetization reality (India, 2024-2025):**
+
+```mermaid
+pie title India Ad Revenue Mix (Top Casual)
+    "Rewarded Video" : 55
+    "Interstitials" : 25
+    "Banners" : 12
+    "IAP" : 8
+```
+
+- 💸 **Rewarded eCPM**: $1–3 (fragile but profitable with frequency caps)
+- 💸 **Interstitial eCPM**: $0.5–1.5 (high churn cost — destroys session quality)
+- 💸 **Remove Ads IAP**: $1.99 sweet spot, ~3% conversion benchmark
+
+**Platform instability signal:**
+
+- 🚨 **Google deprecated PGS multiplayer** (2019)
+- 🚨 **Google Play Instant sunset** (Dec 2025)
+- 🚨 **Poki/CrazyGames still no install PWA** on Android
+
+**The takeaway:** the gap is **structural, not stylistic**. A small, opinionated, *offline-first* multi-game app that treats identity, leaderboards, and progression as platform primitives can win against both ad-cluttered ports and web aggregators.
+
+---
 
 ### 1.2 Our Answer
 
-**Games Platform** is a Flutter + Firebase Android app that bundles 6–8 classic arcade games (Snake, Block Drop (renamed Tetris), Sky Hop (renamed Flappy Bird), Hangman, MineSneeker, Rock Paper Scissors, Tic Tac Toe, with Pong deferred to v2.0) behind a single anonymous-by-default profile, a single cross-game leaderboard, a single daily-streak reward loop, and a single ad-light monetization model (rewarded video + "Remove Ads" IAP (in-app purchase)). It is built by a 3-person team (Subhadip Paul — backend, Firebase; Abhishek — frontend; Samhita — design + QA) over ~12 months in five phases, with a hard emphasis on the three properties none of the open-source Flutter multi-game references deliver: **(1) Firebase-backed identity and leaderboards**, **(2) offline-first play with local-first cache + cloud sync**, and **(3) kid-safe defaults** (no chat, no third-party tracking, COPPA/GDPR-K compliant). It targets 1.5M installs in year one with a 22% D7 retention target — roughly 2.75× the category median — and converts at ~3% to "Remove Ads" IAP at a $1.99 price point. The app weighs in at <40 MB installed, runs smoothly on Android 8 (Oreo) and up, and supports English, Hindi, and Bengali at launch.
+**Games Platform** — a Flutter + Firebase Android app that bundles **6 classic arcade games** behind one anonymous-by-default profile, one cross-game leaderboard, one daily-streak loop, and one ad-light monetization model.
+
+```mermaid
+graph TB
+    subgraph Platform["📱 ONE Platform"]
+        Profile[Anonymous Profile]
+        Leaderboard[Cross-Game Leaderboard]
+        Streak[Daily Streak Loop]
+        Monetization[Rewarded + Remove Ads IAP]
+    end
+
+    subgraph Games["🎮 6 Games in v1.0"]
+        G1[Snake]
+        G2[Block Drop]
+        G3[Sky Hop]
+        G4[Hangman]
+        G5[MineSneeker]
+        G6[Rock Paper Scissors]
+    end
+
+    Profile --> Games
+    Leaderboard --> Games
+    Streak --> Games
+    Monetization --> Games
+```
+
+**What's inside the box:**
+
+- 🎮 **6 games** at v1.0 launch (Tic Tac Toe, Hangman, RPS, MineSneeker, Snake, Block Drop)
+- 🎮 **Pong deferred** to v2.0 (realtime infra too heavy for v1.0)
+- 👤 **Anonymous-by-default** → email upgrade when user opts in
+- 🏆 **Single cross-game leaderboard** with denormalized public boards
+- 🔥 **Daily-streak reward loop** (XP + cosmetic at day-7)
+- 💰 **Monetization**: rewarded video (capped) + $1.99 "Remove Ads" IAP
+- 🌐 **Trilingual at launch**: English + Hindi + Bengali
+
+**The 3 things NO open-source Flutter multi-game ref delivers:**
+
+| Property | Competitors | Us |
+|---|:---:|:---:|
+| 🔥 Firebase-backed identity & leaderboards | ❌ | ✅ |
+| 📴 Offline-first with local cache + cloud sync | ❌ | ✅ |
+| 🛡 Kid-safe defaults (COPPA + GDPR-K compliant) | ❌ | ✅ |
+
+**Targets (Year 1):**
+
+```mermaid
+xychart-beta
+    title "Year-1 Targets"
+    x-axis ["Installs", "D7%", "ARPDAU $", "Crash-free%", "Store Rating"]
+    y-axis "Value" 0 --> 50
+    bar [15, 22, 0.04, 99.5, 4.5]
+```
+
+- 📥 **1.5M installs**
+- 🔁 **22% D7 retention** (~2.75× category median)
+- 💵 **~$0.04 ARPDAU**
+- 🛡 **99.5% crash-free**
+- ⭐ **4.5★ Play Store rating**
+
+**Team (3 people, 12 months, 5 phases):**
+
+```mermaid
+graph LR
+    SP[Subhadip Paul<br/>Backend + Firebase<br/>+ DevOps]
+    AB[Abhishek<br/>Frontend + QA<br/>+ Animations]
+    SM[Samhita<br/>Design + i18n<br/>+ Content]
+    SP <--> AB
+    AB <--> SM
+    SP <--> SM
+```
+
+**Technical envelope:**
+
+- 📦 **APK size**: <40 MB installed
+- 📱 **Min Android**: 8.0 Oreo (API 26+)
+- 🎯 **Frame budget**: 60 fps sustained on sub-$200 devices
+- 🌐 **Locales**: EN + HI + BN at launch
 
 ### 1.3 The Ask
 
@@ -1573,77 +1706,77 @@ For the catalog to scale from 6 to 50+ without linear team growth, every game mu
 ```mermaid
 mindmap
   root((Full PRD Mindmap))
-    Section 1 Executive Summary
+    S1 Executive Summary
       Market context
       Our answer
       The ask
-    Section 2 Vision
+    S2 Vision
       Default phone arcade
       Platform not product
-    Section 3 Mission
+    S3 Mission
       Offline default
       Identity earned
       Ads opt-in
-      Kid-safe
-    Section 4 Problems
+      Kid safe
+    S4 Problems
       Login friction
       Web aggregators wrong
       Trademark minefields
       8 games too many
       Ad monetization fragile
       Platform unstable
-    Section 5 Audience
+    S5 Audience
       420M India casual
-      Tier 1-3 cities
-      English + Hindi + Bengali
-    Section 6 Personas
-      Riya 9 kid
-      Aarav 16 teen
-      Priya 28 commuter
-      Mr Banerjee 38 parent
-    Section 7 Stories
-      Identity + Library
-      Gameplay + Leaderboards
-      Streak + Monetization
-      Offline + A11y + Onboarding
-    Section 8 Journey
+      Tier 1 2 3 cities
+      English Hindi Bengali
+    S6 Personas
+      Riya 9
+      Aarav 16
+      Priya 28
+      Mr Banerjee 38
+    S7 Stories
+      Identity and Library
+      Gameplay and Leaderboards
+      Streak and Monetization
+      Offline A11y Onboarding
+    S8 Journey
       Discovery to Day 120
-    Section 9 Core Features
+    S9 Core Features
       12 P0 features
-    Section 10 Future Features
+    S10 Future Features
       P1 v1.1
       P2 v2.0
       P3 v3.0
-    Section 11 Functional Reqs
-      25 FRs across 7 groups
-    Section 12 Non-Functional
-      Performance + Security
-      Privacy + A11y + Scale
-    Section 13 Success Metrics
-      North Star WAP-3
+    S11 Functional Reqs
+      25 FRs in 7 groups
+    S12 Non Functional
+      Performance Security
+      Privacy A11y Scale
+    S13 Success Metrics
+      North Star WAP 3
       10 supporting metrics
-    Section 14 KPIs
-      18 KPIs tracked weekly
-    Section 15 Competitors
+    S14 KPIs
+      18 KPIs weekly
+    S15 Competitors
       10 surveyed
       4 key wins
-    Section 16 Risks
-      7 risks ranked P x I
-    Section 17 Release
+    S16 Risks
+      7 risks P x I
+    S17 Release
       4 stages alpha to global
-    Section 18 Roadmap
-      7 phases over 14 months
-    Section 19 Team
-      Subhadip + Abhishek + Samhita
-    Section 20 MVP Scope
-      6 games in, 8 deferred
-    Section 21 Post-MVP
-      v1.1 + v2.0 + v3.0
-    Section 22 Scaling
-      6 to 12 to 20 to 50-500+
-    Section 23 Appendix
-      Glossary + change log
-      Open questions + ack
+    S18 Roadmap
+      7 phases in 14 months
+    S19 Team
+      Subhadip Abhishek Samhita
+    S20 MVP Scope
+      6 games in 8 deferred
+    S21 Post MVP
+      v1.1 plus v2.0 plus v3.0
+    S22 Scaling
+      6 to 12 to 20 to 50 500 plus
+    S23 Appendix
+      Glossary change log
+      Open questions ack
 ```
 
 This PRD is the synthesis of:
