@@ -299,6 +299,45 @@ Distributed under the **MIT License**. See `LICENSE` for more information.
 
 ---
 
+## 👥 Contributors
+
+> 💡 The full task breakdown for the upcoming **Flutter + Firebase application** lives in [`APP_DEVELOPMENT.md`](./APP_DEVELOPMENT.md).
+
+<table align="center">
+  <tr>
+    <td align="center" width="33%">
+      <a href="https://github.com/Subhadip-Paul2006">
+        <img src="https://github.com/Subhadip-Paul2006.png" width="100" alt="Subhadip Paul"/><br/>
+        <sub><b>Subhadip Paul</b></sub>
+      </a><br/>
+      🧑‍✈️ <em>Lead Developer</em><br/>
+      Architecture · Firebase · DevOps
+    </td>
+    <td align="center" width="33%">
+      <img src="https://avatars.githubusercontent.com/u/0?v=4" width="100" alt="Abhishek"/><br/>
+      <sub><b>Abhishek</b></sub><br/>
+      🎨 <em>Frontend Engineer</em><br/>
+      Flutter UI · Animations · Game Shells
+    </td>
+    <td align="center" width="33%">
+      <img src="https://avatars.githubusercontent.com/u/0?v=4" width="100" alt="Samhita"/><br/>
+      <sub><b>Samhita</b></sub><br/>
+      🧪 <em>UI/UX & QA Lead</em><br/>
+      Design · Logic Port · Testing
+    </td>
+  </tr>
+</table>
+
+### Contribution Breakdown
+
+| Contributor | Role | Primary Focus | Games Worked On |
+|------------|------|---------------|-----------------|
+| 🧑‍✈️ **Subhadip Paul** | Lead Developer | Architecture, Firebase backend, DevOps, code review | Tic Tac Toe · Snake · Hangman · MineSneeker · Rock Paper Scissors · Tetris |
+| 🎨 **Abhishek** | Frontend Engineer | Flutter UI, animations, game UI shells, navigation | Tic Tac Toe · Snake · Flappy Bird · Pong |
+| 🧪 **Samhita** | UI/UX & QA Lead | Design system, game logic ports, QA, localization | Flappy Bird |
+
+---
+
 <p align="center">
-  Built with ❤️ by <a href="https://github.com/Subhadip-Paul2006">Subhadip Paul</a> and contributors.
+  Built with ❤️ by <a href="https://github.com/Subhadip-Paul2006">Subhadip Paul</a>, Abhishek &amp; Samhita.
 </p>
