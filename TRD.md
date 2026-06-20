@@ -90,11 +90,66 @@ All four personas converge on **one technical reality: the app must work fully o
 - **Code blocks:** Anything inside triple backticks is either a real file excerpt, a planned interface, a security rule, or a Cloud Function signature. Future code is marked with the `// FUTURE:` prefix.
 - **Diagram labels:** All Mermaid diagrams use plain-English labels so a non-technical reviewer can follow them.
 
+```mermaid
+graph TB
+    FlutterApp["Flutter Android App<br/>(Riverpod + Flame)"]
+    FirebaseAuth["Firebase Auth<br/>(Anon / Email / Google)"]
+    Firestore["Firestore<br/>(profiles, scores, leaderboards)"]
+    CloudFunctions["Cloud Functions<br/>(validate, rollup, streak cron)"]
+    Storage["Cloud Storage<br/>(avatars, replays)"]
+    Analytics["Firebase Analytics<br/>(event taxonomy)"]
+    Crashlytics["Crashlytics<br/>(crash + non-fatal)"]
+
+    FlutterApp --> FirebaseAuth
+    FlutterApp --> Firestore
+    FlutterApp --> Storage
+    FlutterApp --> Analytics
+    FlutterApp --> Crashlytics
+    Firestore --> CloudFunctions
+    Storage --> CloudFunctions
+    Analytics --> CloudFunctions
+    Crashlytics -.telemetry.-> FlutterApp
+```
+
 ---
 
 ## 2. Technical Architecture
 
 ### 2.1 System Diagram (Mermaid)
+
+```mermaid
+graph TB
+    subgraph Frontend["Frontend (Flutter 3.x)"]
+        UI["UI Layer<br/>Riverpod Widgets"]
+        Router["go_router"]
+        Games["GameModules<br/>Flame + plain widgets"]
+    end
+    subgraph Backend["Backend (Cloud Functions)"]
+        Callable["Callable Wrappers<br/>(runtime.ts)"]
+        Logic["Business Logic<br/>(score, leaderboard, IAP)"]
+    end
+    subgraph Data["Data Layer"]
+        Auth["Firebase Auth"]
+        DB["Firestore"]
+        Blob["Cloud Storage"]
+    end
+    subgraph Observability["Observability"]
+        An["Analytics"]
+        Cr["Crashlytics"]
+        Per["Performance"]
+    end
+
+    UI --> Router
+    UI --> Games
+    Games --> Callable
+    Callable --> Logic
+    Logic --> Auth
+    Logic --> DB
+    Logic --> Blob
+    UI --> An
+    UI --> Cr
+    UI --> Per
+```
 
 ```mermaid
 flowchart TB
@@ -226,6 +281,33 @@ flowchart LR
 
 The offline-first flow guarantees the user sees their score immediately, even on a flight. The sync is idempotent (see [§6 API Design](#6-api-design) for `submissionId`).
 
+```mermaid
+sequenceDiagram
+    autonumber
+    participant U as User
+    participant W as Widget
+    participant RP as Riverpod State
+    participant GM as GameModule
+    participant H as Hive (local)
+    participant CF as Cloud Function
+    participant FS as Firestore
+    participant AN as Analytics
+
+    U->>W: tap "Submit Score"
+    W->>RP: ref.read(submitScoreProvider)
+    RP->>GM: build score payload
+    GM->>H: outbox.enqueue(submission)
+    H-->>GM: persisted locally
+    GM-->>RP: optimistic UI updates
+    par Background Sync
+        H->>CF: invoke submitScore (HTTPS)
+        CF->>FS: write score + PB
+        FS-->>CF: ok
+        CF->>AN: emit game_over event
+        CF-->>H: outbox.markDone
+    end
+```
+
 ---
 
 ## 3. Frontend Architecture
@@ -339,6 +421,51 @@ games_platform/
 
 The `GameModule` is the single most important abstraction in this codebase. Every game in the catalog must implement this contract. The contract is intentionally minimal so a junior engineer can add a new game in 4–6 weeks.
 
+```mermaid
+classDiagram
+    class GameModule {
+        +GameId id
+        +String displayNameKey
+        +String descriptionKey
+        +String iconAsset
+        +Version minEngineVersion
+        +init() void
+        +tick(dt) void
+        +render(canvas) void
+        +onInput(event) void
+        +onPause() void
+        +onResume() void
+        +dispose() Future~void~
+        +getScore() GameScore
+        +getState() GameLifecycle
+    }
+    class TicTacToeModule {
+        +board Grid
+    }
+    class HangmanModule {
+        +word String
+    }
+    class RPSModule {
+        +choices List
+    }
+    class MineSneekerModule {
+        +grid Grid
+    }
+    class SnakeModule {
+        +body List~Point~
+    }
+    class BlockDropModule {
+        +grid Grid
+    }
+
+    GameModule <|-- TicTacToeModule
+    GameModule <|-- HangmanModule
+    GameModule <|-- RPSModule
+    GameModule <|-- MineSneekerModule
+    GameModule <|-- SnakeModule
+    GameModule <|-- BlockDropModule
+```
+
 ```dart
 // lib/platform/games/game_module.dart
 
@@ -443,6 +570,20 @@ class Version implements Comparable<Version> {
 ### 3.3 Riverpod State Management (ADR-002)
 
 We use **Riverpod 2.x** for state management. Riverpod's compile-time provider graph and `AsyncNotifier` fit our offline-first + Firestore model better than Bloc or Provider.
+
+```mermaid
+stateDiagram-v2
+    [*] --> Idle
+    Idle --> Loading: launch()
+    Loading --> Playing: init complete
+    Playing --> Paused: onPause()
+    Paused --> Playing: onResume()
+    Playing --> GameOver: player loses / submits
+    GameOver --> Restart: tap Play Again
+    Restart --> Loading
+    GameOver --> Idle: exit to menu
+    Idle --> [*]
+```
 
 ```dart
 // lib/platform/auth/auth_state.dart
@@ -567,6 +708,24 @@ We use **Flame Engine 1.x** for the four arcade games (Snake, Block Drop, Sky Ho
 
 A Flame game composes into the platform via `GameWidget` wrapped in a Riverpod `Provider`. The game reads the platform's `ScoreClient` and `AnalyticsClient` through constructor injection, **not** through direct Firebase calls.
 
+```mermaid
+graph LR
+    FlameGame["FlameGame<br/>(root)"]
+    World["World<br/>(game space)"]
+    Camera["CameraComponent"]
+    Comp1["SnakeComponent"]
+    Comp2["FoodComponent"]
+    Comp3["WallComponent"]
+    Render["RenderLoop<br/>(60 fps)"]
+
+    FlameGame --> World
+    FlameGame --> Camera
+    World --> Comp1
+    World --> Comp2
+    World --> Comp3
+    Camera --> Render
+```
+
 ```dart
 // lib/games/snake/snake_game.dart (sketch)
 
@@ -615,6 +774,24 @@ class SnakeGameModule extends GameModule {
 ### 3.6 Touch Input RFC (Phase 1.5 deliverable)
 
 A platform-wide touch input contract ensures every game feels identical on swipe/tap. See [§3.6.1](#361-touchinput-interface).
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Screen as Android Screen
+    participant Detector as GestureDetector
+    participant Touch as TouchInput.translate()
+    participant GM as GameModule.onInput()
+    participant State as Riverpod State
+
+    Screen->>Detector: pointer down (x, y, t)
+    Detector->>Detector: classify gesture<br/>(tap / swipe / long-press)
+    Detector->>Touch: raw PointerEvent
+    Touch->>Touch: apply heuristics<br/>(24 dp min, 500 ms max)
+    Touch->>GM: InputEvent(kind, dir, pos, t)
+    GM->>State: mutate GameState
+    State-->>Screen: rebuild (next frame)
+```
 
 #### 3.6.1 TouchInput interface
 
@@ -665,6 +842,15 @@ These are tunable in `Remote Config` per game cohort.
 
 ```mermaid
 flowchart LR
+    Figma["Figma / PNG Export"] --> AssetStudio["AssetStudio<br/>(squash + WebP)"]
+    AssetStudio --> StorageBucket["Cloud Storage<br/>games/{id}/"]
+    StorageBucket --> AppCache["AppCache<br/>(memory + disk LRU)"]
+    AppCache --> HiveCatalog["HiveCatalog<br/>asset index"]
+    HiveCatalog --> Rendered["Rendered Sprite<br/>(Canvas / Flame)"]
+```
+
+```mermaid
+flowchart LR
     A["Figma Export<br/>(@1x, @2x, @3x)"] --> B["Asset Bundle<br/>(/assets/)"]
     C["Audio Source<br/>(.ogg, .mp3)"] --> B
     D["Lottie / Rive<br/>(.json, .riv)"] --> B
@@ -706,6 +892,24 @@ nullable-getter: false
 ---
 
 ## 4. Backend Architecture
+
+```mermaid
+graph TB
+    Client["Client (Flutter App)"]
+    Callable["Callable Wrappers<br/>runtime.ts<br/>(auth + App Check)"]
+    Logic["Business Logic<br/>score, leaderboard, IAP, streak"]
+    FS["Firestore"]
+    CS["Cloud Storage"]
+    Admob["AdMob Verify API"]
+    Play["Google Play Billing API"]
+
+    Client --> Callable
+    Callable --> Logic
+    Logic --> FS
+    Logic --> CS
+    Logic --> Admob
+    Logic --> Play
+```
 
 ### 4.1 Firebase Services Breakdown
 
@@ -926,6 +1130,21 @@ Five patterns we enforce to keep our Firebase bill under control:
 
 ### 4.6 Cold Start Mitigation
 
+```mermaid
+gantt
+    title Cloud Function Rollout & Warm-up Schedule
+    dateFormat YYYY-MM-DD
+    section Min-instances
+    submitScore min-instances=1        :a1, 2026-09-01, 30d
+    getLeaderboard min-instances=1      :a2, 2026-09-01, 30d
+    verifyPurchase min-instances=1      :a3, 2026-09-15, 30d
+    section Warm-up Cron
+    PubSub warmup @ 04:00 IST           :b1, 2026-09-01, 60d
+    section Regional
+    asia-south1 primary rollout         :c1, 2026-10-01, 90d
+    asia-southeast1 failover drill      :c2, 2027-01-01, 14d
+```
+
 ```typescript
 // functions/src/runtime.ts
 
@@ -956,6 +1175,49 @@ See [§17 Performance Requirements](#17-performance-requirements) and [§19 Risk
 ## 5. Database Design
 
 ### 5.1 Firestore Collections (Conceptual ER)
+
+```mermaid
+erDiagram
+    USERS ||--o{ SCORES : submits
+    USERS ||--|| PERSONAL_BEST : has
+    USERS ||--o{ STREAK_DAYS : has
+    USERS ||--|| ENTITLEMENTS : holds
+    GAMES ||--o{ LEADERBOARDS : ranked_in
+    LEADERBOARDS }o--|| USERS : features
+
+    USERS {
+        string uid PK
+        string handle
+        string country
+        string locale
+        int current_streak
+    }
+    SCORES {
+        string submission_id PK
+        string game_id FK
+        int value
+        timestamp played_at
+    }
+    STREAK_DAYS {
+        string date PK
+        bool completed
+    }
+    ENTITLEMENTS {
+        string id PK
+        bool active
+    }
+    GAMES {
+        string id PK
+        string display_name
+        bool enabled
+    }
+    LEADERBOARDS {
+        string composite_id PK
+        string game_id FK
+        int rank
+        string user_id FK
+    }
+```
 
 ```mermaid
 erDiagram
@@ -1457,9 +1719,40 @@ sequenceDiagram
     end
 ```
 
+```mermaid
+stateDiagram-v2
+    [*] --> Pending: enqueue()
+    Pending --> InFlight: worker picks
+    InFlight --> Succeeded: 200 OK
+    InFlight --> Failed: error
+    Failed --> Retrying: backoff timer
+    Retrying --> InFlight: attempts < 5
+    Retrying --> DLQ: attempts == 5
+    Succeeded --> [*]
+    DLQ --> Pending: manual replay
+```
+
 ---
 
 ## 6. API Design
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Client as Flutter Client
+    participant Callable as Cloud Function (onCall)
+    participant FS as Firestore
+    participant Auth as Firebase Auth
+
+    Client->>Auth: getIdToken(forceRefresh=false)
+    Auth-->>Client: idToken + App Check token
+    Client->>Callable: invoke submitScore(data)
+    Callable->>Auth: verifyAuth + App Check
+    Auth-->>Callable: uid, claims
+    Callable->>FS: tx write score + PB
+    FS-->>Callable: ok
+    Callable-->>Client: { accepted, newPB, rank }
+```
 
 ### 6.1 Callable Surface (v1.0)
 
@@ -1610,6 +1903,18 @@ export async function alreadyProcessed<T>(
 
 Per-user, per-function, sliding window. Backed by Firestore counters (cheap; sub-millisecond reads).
 
+```mermaid
+stateDiagram-v2
+    [*] --> Allowed
+    Allowed --> Allowed: count < limit * 0.8
+    Allowed --> Warned: count >= 80%
+    Warned --> Warned: count < limit
+    Warned --> Throttled: count >= limit
+    Throttled --> Cooldown: 60s timer
+    Cooldown --> Allowed: timer expires
+    Allowed --> [*]
+```
+
 | Function | Per-user limit | Per-IP limit | Action on breach |
 |---|---|---|---|
 | `submitScore` | 60/min | 600/min | `resource-exhausted` |
@@ -1627,6 +1932,33 @@ We expose **no public REST API** in v1.0. The privacy policy and marketing site 
 ---
 
 ## 7. Authentication Flow
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant App as Flutter App
+    participant FA as Firebase Auth
+    participant FS as Firestore
+    participant CF as Cloud Function
+
+    App->>FA: currentUser.getIdToken()
+    FA-->>App: token (valid)
+    Note over App: Use token for all calls
+
+    App->>FA: currentUser.getIdToken(forceRefresh=true)
+    FA-->>App: new token
+    App->>FS: signed read
+    FS-->>App: ok
+
+    rect rgba(255,0,0,0.1)
+    Note over App,FA: Error recovery path
+    App->>FA: getIdToken()
+    FA-->>App: token expired / invalid
+    App->>FA: signInAnonymously() (anon) or refreshCredential()
+    FA-->>App: new valid token
+    App->>CF: retry original call
+    end
+```
 
 ### 7.1 Auth Methods (v1.0)
 
@@ -1736,6 +2068,20 @@ export const linkAnonymousToProvider = onCall<LinkRequest, Promise<LinkResponse>
 
 ### 7.7 Auth State Listener (Riverpod)
 
+```mermaid
+graph LR
+    Auth["Firebase Auth"]
+    Changed["authStateChanges()<br/>Stream"]
+    Provider["authNotifierProvider<br/>(AsyncNotifier)"]
+    UI["UI Widgets<br/>(ConsumerWidget)"]
+    Rebuild["Reactive Rebuild"]
+
+    Auth --> Changed
+    Changed --> Provider
+    Provider --> UI
+    UI --> Rebuild
+```
+
 ```dart
 // lib/platform/auth/auth_state.dart
 
@@ -1789,6 +2135,25 @@ Sign out is gated by the Parent Mode PIN (FR-04). We revoke the refresh token se
 | FCM token leakage | Low | Low | Tokens stored only server-side; never in logs |
 | Soft-delete loophole | Low | High | `users/{uid}` retains `soft_delete_until`; hard-delete Cloud Function purges after 7 days |
 
+```mermaid
+graph TB
+    MalClient["Malicious Client<br/>(scripts, modified APK)"]
+    Replay["Replay Attacker<br/>(duplicate submissionId)"]
+    MITM["Network MITM"]
+    OpComp["Compromised Operator<br/>(insider)"]
+
+    AppCheck["Mitigation: App Check<br/>(Play Integrity)"]
+    AntiCheat["Mitigation: Anti-Cheat<br/>(server-side validation)"]
+    TLS["Mitigation: TLS 1.3<br/>+ cleartext block"]
+    KMS["Mitigation: Secret Manager<br/>+ KMS encryption"]
+
+    MalClient --> AppCheck
+    MalClient --> AntiCheat
+    Replay --> AntiCheat
+    MITM --> TLS
+    OpComp --> KMS
+```
+
 ### 8.2 App Check (ADR-004)
 
 We enforce **Firebase App Check** on every Firebase service the app uses. App Check attests that a request comes from a genuine, unmodified app on a genuine Android device.
@@ -1820,6 +2185,24 @@ Future<void> initFirebase() async {
 | **Trade-off** | Emulators and rooted devices can fail attestation. We ship a `BYPASS_APP_CHECK=true` flag for internal alpha only, never for closed beta. |
 
 ### 8.3 Anti-Cheat Flow
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant U as User
+    participant App as Flutter App
+    participant CF as Cloud Function
+    participant FS as Firestore
+
+    U->>App: complete game
+    App->>App: sign payload (HMAC-SHA256)
+    App->>CF: submitScore(score, submissionId, sig)
+    CF->>CF: verify HMAC signature
+    CF->>CF: validate score plausibility
+    CF->>FS: tx write score + PB
+    FS-->>CF: ok
+    CF-->>App: { accepted, newPB, rank }
+```
 
 ```mermaid
 flowchart TD
@@ -1905,6 +2288,24 @@ We implement rate limits at three layers:
 
 ### 9.3 CDN Strategy
 
+```mermaid
+flowchart LR
+    User["User Request<br/>(asset URL)"]
+    Edge["CDN Edge<br/>(Firebase Hosting)"]
+    Miss["Cache MISS"]
+    Bucket["Storage Bucket<br/>gs://games-platform.appspot.com"]
+    Fill["Cache Fill<br/>(public, max-age=86400)"]
+    Serve["Serve<br/>(bytes)"]
+
+    User --> Edge
+    Edge --> Miss
+    Miss --> Bucket
+    Bucket --> Fill
+    Fill --> Edge
+    Edge --> Serve
+    Serve --> User
+```
+
 - **Bundled assets** ship in the APK; no CDN needed.
 - **Marketing + privacy** served via Firebase Hosting with global CDN, free tier.
 - **User-uploaded content (v1.1+)** served via `storage.googleapis.com/<bucket>/<path>?alt=media` with cache headers `Cache-Control: public, max-age=86400`.
@@ -1919,6 +2320,44 @@ Replays are JSON-encoded deterministic game ticks, ~1–10 KB per minute of play
 ## 10. Analytics Strategy
 
 ### 10.1 Event Taxonomy
+
+```mermaid
+mindmap
+  root((27-Event Taxonomy))
+    Auth
+      app_open
+      onboarding_complete
+      auth_method_selected
+    Gameplay
+      game_launch
+      game_session_start
+      game_pause
+      game_resume
+      game_over
+      score_submit_attempt
+      score_submit_success
+      score_submit_failed
+      leaderboard_view
+      leaderboard_share
+    Monetization
+      iap_initiate
+      iap_purchase
+      ad_impression
+      ad_clicked
+      rewarded_ad_offered
+      rewarded_ad_completed
+    Social
+      streak_day_completed
+      streak_reminder_sent
+    Performance
+      remote_config_fetched
+    Error
+      error_boundary
+      settings_changed
+      parent_pin_set
+      parent_pin_failed
+      account_delete_requested
+```
 
 | Event name | When | Params (name: type) | PII-safe? |
 |---|---|---|---|
@@ -1961,6 +2400,20 @@ Replays are JSON-encoded deterministic game ticks, ~1–10 KB per minute of play
 
 Firebase Analytics → BigQuery link is enabled at project creation. We define one dataset per environment:
 
+```mermaid
+flowchart LR
+    SDK["Analytics SDK<br/>(Flutter)"]
+    BQ["BigQuery Export<br/>(streaming insert)"]
+    SQ["Scheduled Query<br/>(daily 02:00 IST)"]
+    Agg["Aggregate Table<br/>(cohort_retention)"]
+    Dash["Dashboard<br/>(Looker / Data Studio)"]
+
+    SDK --> BQ
+    BQ --> SQ
+    SQ --> Agg
+    Agg --> Dash
+```
+
 - `analytics_prod` (production)
 - `analytics_staging` (closed beta)
 - `analytics_dev` (internal alpha)
@@ -1986,6 +2439,18 @@ We add **GameAnalytics** as a complement because it computes D1/D7/D30 retention
 ## 11. Testing Strategy
 
 ### 11.1 Test Pyramid
+
+```mermaid
+graph TB
+    Unit["Unit Tests<br/>~60% of suite"]
+    Widget["Widget Tests<br/>~25% of suite"]
+    Integration["Integration Tests<br/>~10% of suite"]
+    E2E["E2E / Firebase Test Lab<br/>~5% of suite"]
+
+    Unit --> Widget
+    Widget --> Integration
+    Integration --> E2E
+```
 
 ```mermaid
 flowchart TB
@@ -2059,6 +2524,31 @@ We run a 5-minute "smoke" test: install → cold launch → log in (anon) → pl
 ## 12. CI/CD Strategy
 
 ### 12.1 Branch Policy
+
+```mermaid
+gitGraph
+    commit
+    branch develop
+    checkout develop
+    commit
+    branch feature/auth-google
+    checkout feature/auth-google
+    commit
+    commit
+    checkout develop
+    merge feature/auth-google
+    branch release/1.0.0
+    checkout release/1.0.0
+    commit
+    checkout main
+    merge release/1.0.0 tag: "v1.0.0"
+    checkout main
+    branch hotfix/crash-fix
+    checkout hotfix/crash-fix
+    commit
+    checkout main
+    merge hotfix/crash-fix tag: "v1.0.1"
+```
 
 ```mermaid
 gitGraph
@@ -2242,6 +2732,24 @@ We declare in Play Console:
 
 ### 14.1 SDK Levels
 
+```mermaid
+flowchart LR
+    Source["GitHub Source<br/>(main / release/*)"]
+    Lint["Lint<br/>(dart analyze)"]
+    Test["Test<br/>(flutter test --coverage)"]
+    Analyze["Static Analysis<br/>(gitleaks + dart analyze)"]
+    CM["Codemagic<br/>(release workflow)"]
+    Sign["Signing<br/>(Play App Signing)"]
+    Store["Play Store<br/>(internal / staged rollout)"]
+
+    Source --> Lint
+    Lint --> Test
+    Test --> Analyze
+    Analyze --> CM
+    CM --> Sign
+    Sign --> Store
+```
+
 | Setting | Value | Why |
 |---|---|---|
 | `minSdk` | 26 (Android 8.0) | Covers 96% of Indian Android devices in 2026 (per `PRD.md` §5.4). |
@@ -2399,6 +2907,25 @@ See [§5.3](#53-firestore-indexes-firestoreindexesjson). We audit monthly:
 | **Year 2 (1M DAU)** | 1M | 500M | 50M | 100M | ~$15,000 |
 | **Year 3 (10M DAU)** | 10M | 5B | 500M | 1B | ~$150,000 (requires platformization + partner negotiation) |
 
+```mermaid
+xychart-beta
+    title "Monthly Cost vs DAU"
+    x-axis [100K, 1M, 10M]
+    y-axis "USD/month" 0 --> 200000
+    line [1500, 15000, 150000]
+```
+
+```mermaid
+pie title Cost Breakdown @ 1M DAU
+    "Firestore reads" : 30
+    "Firestore writes" : 15
+    "Cloud Functions" : 20
+    "Storage" : 10
+    "Analytics" : 10
+    "Crashlytics" : 5
+    "Other" : 10
+```
+
 These assume the [cost-aware patterns in §4.5](#45-cost-aware-backend-patterns) are followed. Without them, the same scale would cost 3–5× more.
 
 ### 16.4 Platformization Path
@@ -2438,6 +2965,14 @@ When the 7th game is added, the build should fail if any rule is broken. The lin
 | Cloud Function (submitScore) p95 | ≤ 500 ms | Cloud Monitoring | Subhadip |
 | Cold start (Cloud Function) | ≤ 1 s (with min-instances=1) | Cloud Monitoring | Subhadip |
 
+```mermaid
+xychart-beta
+    title "Frame Budget (16.67ms)"
+    x-axis [rendering, logic, layout, input, GC]
+    y-axis "ms" 0 --> 10
+    bar [6.0, 4.0, 3.0, 2.0, 1.67]
+```
+
 ### 17.2 Frame Budget Table
 
 | Phase of frame | Budget | Why |
@@ -2460,6 +2995,15 @@ Total: 16.6 ms / frame at 60 Hz. We budget a 30% spike headroom in the buffer co
 | Audio buffers | 15 MB |
 | Headroom | 25 MB |
 | **Total peak** | **150 MB** |
+
+```mermaid
+pie title Memory Components
+    "Game assets" : 40
+    "Game state" : 25
+    "UI" : 15
+    "Caches" : 15
+    "Other" : 5
+```
 
 ### 17.4 Battery
 
@@ -2497,6 +3041,22 @@ Total: 16.6 ms / frame at 60 Hz. We budget a 30% spike headroom in the buffer co
 | IAP verification failure | 5% of receipts invalid | Slack | Subhadip |
 | FCM delivery drop | FCM success < 90% | Slack | Subhadip |
 
+```mermaid
+flowchart TB
+    Trigger["Alert Trigger<br/>(threshold breach)"]
+    OnCall["On-Call Notify<br/>(Slack / SMS)"]
+    Ack["Acknowledge<br/>(within 15 min)"]
+    Invest["Investigate<br/>(logs + dashboards)"]
+    Mitigate["Mitigate<br/>(hotfix / rollback / flag)"]
+    PM["Post-Mortem<br/>(within 48h)"]
+
+    Trigger --> OnCall
+    OnCall --> Ack
+    Ack --> Invest
+    Invest --> Mitigate
+    Mitigate --> PM
+```
+
 ### 18.3 Dashboards
 
 - **Live ops dashboard** (Firebase Console → Crashlytics + Performance): real-time during staged rollout.
@@ -2519,6 +3079,32 @@ Subhadip is the solo on-call lead. The runbook for production incidents:
 ## 19. Risk Analysis
 
 ### 19.1 Risk Matrix
+
+```mermaid
+quadrantChart
+    title "Risk Matrix (Likelihood x Impact)"
+    x-axis "Low Likelihood --> High Likelihood"
+    y-axis "Low Impact --> High Impact"
+    quadrant-1 "Watchlist"
+    quadrant-2 "Major Risks"
+    quadrant-3 "Accept"
+    quadrant-4 "Mitigate Now"
+    R-01 Trademark: [0.45, 0.75]
+    R-02 3-person team: [0.55, 0.90]
+    R-03 D7 retention: [0.55, 0.80]
+    R-04 AdMob flag: [0.25, 0.70]
+    R-05 COPPA: [0.55, 0.95]
+    R-06 Firestore cost: [0.50, 0.75]
+    R-07 iOS/Web loss: [0.25, 0.55]
+    R-CF-01 Cold start: [0.80, 0.50]
+    R-CF-02 Timeout: [0.50, 0.75]
+    R-CC-01 Cross-user reads: [0.50, 0.75]
+    R-GAME-01 Porting bug: [0.80, 0.90]
+    R-GAME-02 Touch regression: [0.55, 0.75]
+    R-TM-01 Trademark post: [0.20, 0.95]
+    R-SOLO-01 Bus factor: [0.85, 0.95]
+    R-PLATFORM-01 Contract break: [0.50, 0.80]
+```
 
 | # | Risk | P | I | Mitigation | Owner |
 |---|---|---|---|---|---|
@@ -2567,6 +3153,23 @@ We subscribe to a trademark watch service (e.g., `Trademarkia`) for: "Block Drop
 ## 20. Technology Justification
 
 This section explains **why** every chosen technology was selected. Each entry has WHY chosen, alternatives considered, trade-offs, and when to revisit. Treat this as the "build vs. buy" ledger for the team lead 6 months from now.
+
+```mermaid
+graph TB
+    Flutter["Flutter<br/>(UI framework)"]
+    Riverpod["Riverpod<br/>(state mgmt)"]
+    Router["go_router<br/>(navigation)"]
+    Firebase["Firebase Suite<br/>(Auth, Firestore, Functions, Storage)"]
+    Codemagic["Codemagic<br/>(CI/CD)"]
+    Play["Play Store<br/>(distribution)"]
+
+    Flutter --> Riverpod
+    Flutter --> Router
+    Riverpod --> Firebase
+    Router --> Firebase
+    Firebase --> Codemagic
+    Codemagic --> Play
+```
 
 ### 20.1 Flutter
 

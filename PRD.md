@@ -49,6 +49,52 @@ The casual mobile gaming market in India is paradoxically both saturated and und
 
 ### 1.3 The Ask
 
+```mermaid
+mindmap
+  root((Games Platform))
+    Vision
+      Default phone arcade for India + SEA
+      One profile across every game
+      Offline-first by construction
+      Kid-safe and parent-trusted
+    Mission
+      Respectful play
+      Personal feel
+      Offline-safe
+      Anonymous-first identity
+    Audience
+      Commuter 38 percent
+      Student 31 percent
+      Parent-borrower 18 percent
+      Lunch-break adult 13 percent
+    Features
+      6 polished games at v1.0
+      Anonymous-first auth
+      Cross-game leaderboard
+      Daily streak
+      Rewarded video plus Remove Ads IAP
+    Metrics
+      D7 retention 18 percent
+      IAP conversion 3 percent
+      ARPU 0.10 USD
+      Crash-free 99.5 percent
+    Risks
+      Trademark rejection
+      Scope creep on 8 games
+      Low India eCPM
+      COPPA violations
+      Firestore cost overrun
+    Roadmap
+      Phase 0 Foundations
+      Phase 1 Skeleton
+      Phase 1.5 Monetization
+      Phase 2 Game Modules
+      Phase 3 Backend
+      Phase 4 Polish
+      Phase 4.5 Monetization Live
+      Phase 5 Release
+```
+
 We are asking the team (and any future investors) to commit to a **scope-disciplined, evidence-led, infra-first** build. Specifically: (a) invest the first 10 weeks (Phase 0 + Phase 1) in platform foundation — auth, Firestore schema, App Check (Firebase's bot-abuse prevention service), a `GameModule` interface contract, the touch-input RFC, and offline sync — because every day spent fixing those primitives after games ship costs roughly 3× the rework; (b) cap the v1.0 catalog at 6 games, not 8, because 3 engineers in 12 months cannot ship 8 polished titles to Play Store quality; (c) defer Pong multiplayer, iOS, and web to post-launch phases so Android can hit quality bars; and (d) bake monetization (AdMob rewarded + Remove-Ads IAP) into Phase 4.5 (a new phase inserted between Phase 4 Polish and Phase 5 Release) rather than bolting it on at the end. The expected return is a defensible, shippable Android v1.0 by 2027-04-01 with a credible path to 50+ games within 36 months through the `GameModule` platform model.
 
 ---
@@ -82,17 +128,59 @@ We have validated five concrete user problems and one structural market problem.
 
 ### 4.1 Problem 1 — Login Friction Kills Day-1 Retention
 
+```mermaid
+flowchart LR
+    A[Installed the app] --> B[Forced email or Google sign-in]
+    B --> C[Drop-off 60-70 percent]
+    C --> D[Day-1 retention collapses]
+    D --> E[No re-engagement possible]
+    E --> F[Mitigation: Anonymous-first + Email-later]
+    F --> G[Anonymous profile auto-created]
+    G --> H[Optional upgrade to Google or Email]
+```
+
 **Evidence:** Industry data shows that 60–70% of casual game installs are abandoned at the first mandatory sign-in screen. The Python prototype user tests (n=14) confirmed this: 11 of 14 testers refused to create an account before playing a single game, and 3 uninstalled entirely when forced to share an email address. The competitive set splits into two bad answers: (a) force Google Sign-In (loses ~30% of users) or (b) ship without any identity at all (no leaderboards, no cross-device, no anti-cheat).
 
 **Why it matters:** Day-1 retention is the single most predictive metric for a casual app. Lose 30% at login and the rest of the funnel collapses.
 
 ### 4.2 Problem 2 — The Web Aggregator Experience is Wrong on Mobile
 
+```mermaid
+flowchart LR
+    A[Poki, CrazyGames, Y8 web clones] --> B[Mobile friction]
+    B --> B1[5 second load on 4G]
+    B --> B2[No offline mode]
+    B --> B3[Full-screen interstitials every 2-3 actions]
+    B --> B4[No identity between games]
+    B --> B5[Tab dies in 5 min background]
+    B1 --> C[Users abandon after first session]
+    B2 --> C
+    B3 --> C
+    B4 --> C
+    B5 --> C
+    C --> D[Mitigation: Native-first, offline-first]
+    D --> E[Installed app, no browser tab]
+    E --> F[Hive local cache + Firestore offline]
+    F --> G[Single anonymous profile]
+```
+
 **Evidence:** Poki, CrazyGames, and Y8 deliver dozens of arcade games through a mobile browser. Testers reported (a) ~5 second load times on Indian 4G, (b) no offline mode, (c) full-screen ad interstitials every 2–3 game actions, (d) no consistent identity between games, and (e) the browser tab dies after 5 minutes in the background, losing all progress. None of the top open-source Flutter multi-game references (`yahayuta/casual_games`, `Shovon021/FlutterGames`, `taxze6/FlutterGamesCollection`, `Arcade-Plaza`, `ADMusab12/gamehub`, `dariga03/games_app`) integrate Firebase, so they ship with no auth, no leaderboards, and no analytics — but also no offline strategy.
 
 **Why it matters:** The web aggregator experience trains users to expect ads, slowness, and amnesia. Native + offline is a competitive moat that we can defend for years.
 
 ### 4.3 Problem 3 — Classic Games are Trademark Minefields
+
+```mermaid
+flowchart LR
+    A[Ship game titled 'Tetris'] --> B[Play Store takedown notice]
+    B --> C[Forced rename within 24 hours]
+    C --> D[Re-brand cost in art and store listing]
+    D --> E[7-14 day launch window lost]
+    E --> F[Mitigation: Pre-launch trademark scrub]
+    F --> G[Rename Tetris to Block Drop]
+    G --> H[Rename Flappy Bird to Sky Hop]
+    H --> I[Submit with placeholder icons first]
+```
 
 **Evidence:** "Tetris" is a registered trademark of The Tetris Company; "Flappy Bird" was a registered mark of .Gears (Dong Nguyen's original filing, now lapsed but the name is associated with the .Gears estate). A Play Store submission with "Tetris" or "Flappy Bird" in the title or icon will be rejected within 24 hours. We must rename before launch.
 
@@ -104,17 +192,51 @@ We have validated five concrete user problems and one structural market problem.
 
 ### 4.4 Problem 4 — 3 Engineers Cannot Ship 8 Polished Games in 12 Months
 
+```mermaid
+flowchart LR
+    A[8 games in parallel] --> B[Scope overload]
+    B --> C[Burnout risk on 3 engineers]
+    C --> D[Buggy, half-finished titles]
+    D --> E[Mitigation: 6 games, GameModule interface, parallel pods]
+    E --> F[Cut RPS to v1.1]
+    F --> G[Cut Pong multiplayer to v2.0]
+    G --> H[Cut iOS and web to v1.1]
+    H --> I[Defer iOS and web]
+```
+
 **Evidence:** Industry rule-of-thumb: a competent solo Flutter dev can ship a polished single-game MVP in 6–8 weeks including art, sound, and tutorial polish. With 3 people, parallel work, and shared infra, we estimate 6 games on Android in 12 months. Cutting Pong multiplayer is the single biggest scope reduction. We are also cutting v1.0 to **6 Android games**, deferring Pong to v2.0, and deferring iOS and web to v1.1.
 
 **Why it matters:** Shipping 6 polished games is a launch. Shipping 8 half-done games is a footnote.
 
 ### 4.5 Problem 5 — Ad Monetization in India is Fragile
 
+```mermaid
+flowchart LR
+    A[Aggressive interstitial ads] --> B[User uninstalls]
+    B --> C[Low eCPM 1-3 USD]
+    C --> D[No revenue retention feedback]
+    D --> E[Mitigation: Rewarded only + frequency caps]
+    E --> F[Rewarded video at game-over only]
+    F --> G[Remove Ads IAP at 1.99 USD]
+    G --> H[Cap to 3 rewarded per session]
+```
+
 **Evidence:** India eCPM (the revenue an app earns per thousand ad impressions) for casual rewarded video is $1–3, roughly 1/10th of US eCPM. A user who watches 3 rewarded videos/day at $1.50 eCPM yields ~$0.0045/day, or $1.64/year. Heavy interstitials (full-screen ads that interrupt) are tempting ($5–10 eCPM) but burn retention: our prototype tests showed 4 of 14 users uninstalled after the second forced interstitial in one session. The math forces a strategy of (a) rewarded-only by default, (b) "Remove Ads" IAP at $1.99 (a one-time in-app purchase that hides all ads), and (c) post-v2.0 optional subscription.
 
 **Why it matters:** A monetization model that destroys retention is a model that produces zero revenue.
 
 ### 4.6 Structural Problem — The Platform Itself is Unstable
+
+```mermaid
+flowchart TB
+    A[Google Play Games deprecated multiplayer 2019] --> B[Instant play deprecated Dec 2025]
+    B --> C[Unstable foundation for casual games]
+    C --> D[Will not scale beyond hobby tier]
+    D --> E[Mitigation: Phase 0 foundations before any game work]
+    E --> F[Firebase Auth + Firestore + App Check]
+    F --> G[Own identity, leaderboard, matchmaking]
+    G --> H[Stable SLAs, no sunset risk]
+```
 
 **Evidence:** Google Play Games deprecated its multiplayer services in 2019 and "instant play" in December 2025. Relying on platform-level infrastructure for casual games means betting on Google's continued investment in a low-margin product. The correct strategic move in 2026 is to own your own identity, leaderboard, and matchmaking layer on Firebase.
 
@@ -137,11 +259,25 @@ We have validated five concrete user problems and one structural market problem.
 
 ### 5.2 Geography
 
+```mermaid
+pie title India-first Geographic Split
+    "Tier-1 cities" : 35
+    "Tier-2 cities" : 35
+    "Tier-3 and rural" : 30
+```
+
 - **Primary (v1.0):** India — Tier 1, Tier 2, and Tier 3 cities.
 - **Secondary (v1.0):** Bangladesh, Nepal, Sri Lanka (Bengali + English speakers).
 - **Future (v1.5+):** Indonesia, Philippines, Vietnam (English), Egypt (English + Arabic v2.0+).
 
 ### 5.3 Language
+
+```mermaid
+pie title Language Preference (Primary)
+    "English" : 50
+    "Hindi" : 35
+    "Bengali" : 15
+```
 
 | Language | Script | Loc. team owner | v1.0? |
 |---|---|---|---|
@@ -162,6 +298,14 @@ We have validated five concrete user problems and one structural market problem.
 
 ### 5.5 Behavioral Cohorts
 
+```mermaid
+pie title Behavioral Cohorts
+    "Casual Commuter" : 45
+    "Committed Player" : 30
+    "Parent-mediated Kid" : 15
+    "Returning Gamer" : 10
+```
+
 | Cohort | % of installs | Plays per week | Avg session | Monetization profile |
 |---|---|---|---|---|
 | **The Commuter** (18–34, urban, plays 5–10 min on transit) | 38% | 6–10 | 7 min | Rewarded video (5×/week) |
@@ -172,6 +316,55 @@ We have validated five concrete user problems and one structural market problem.
 ---
 
 ## 6. User Personas
+
+```mermaid
+classDiagram
+    class Persona {
+      +String name
+      +int age
+      +String device
+      +String timeOfDay
+      +String network
+      +String painPoints
+      +String goals
+    }
+    class Riya {
+      +int age = 9
+      +String device = Redmi 9A Android 10
+      +String timeOfDay = After school 15 min
+      +String network = Home Wi-Fi
+      +String painPoints = Forced logins, English-only UI
+      +String goals = Beat Snake high score
+    }
+    class Aarav {
+      +int age = 16
+      +String device = Galaxy M32 Android 12
+      +String timeOfDay = Evening 30-60 min
+      +String network = Mobile data + Wi-Fi
+      +String painPoints = No global leaderboard, slow loads
+      +String goals = Top 100 Block Drop global
+    }
+    class Priya {
+      +int age = 28
+      +String device = Pixel 6a Android 14
+      +String timeOfDay = Commute 8-15 min
+      +String network = Flaky 4G train Wi-Fi
+      +String painPoints = Heavy interstitials, 200 MB installs
+      +String goals = Quick fun, no commitment
+    }
+    class MrBanerjee {
+      +int age = 38
+      +String device = Galaxy A14 Android 13
+      +String timeOfDay = Hands phone 3-4x per week
+      +String network = Home Wi-Fi
+      +String painPoints = Sketchy ads, battery drain, data harvesting
+      +String goals = Trust app is safe, buy Remove Ads
+    }
+    Persona <|-- Riya
+    Persona <|-- Aarav
+    Persona <|-- Priya
+    Persona <|-- MrBanerjee
+```
 
 We have chosen 4 personas (not 3, not 8) because they cover the full behavioral matrix and align with our cohorts. Each persona is grounded in real prototype test data and competitive review.
 
@@ -258,6 +451,55 @@ We have chosen 4 personas (not 3, not 8) because they cover the full behavioral 
 ---
 
 ## 7. User Stories
+
+```mermaid
+mindmap
+  root((User Stories))
+    Identity
+      Anonymous-first profile
+      Optional Google upgrade
+      Parent Mode PIN
+      Public handle v1.1
+    Library
+      Single home screen
+      6 game tiles
+      Quick Play row
+      Try Random Game v1.1
+    Gameplay
+      Swipe and tap controls
+      Pause that always works
+      Haptic feedback
+      Ghost mode v1.1
+    Leaderboards
+      Per-game leaderboard
+      Global + country + friends
+      Personal stats screen
+      Weekly reset v1.1
+    Streak
+      6 PM push reminder
+      Streak counter
+      Day 7 and Day 30 XP reward
+      Streak Freeze v1.1
+    Monetization
+      Rewarded at game-over only
+      Remove Ads IAP at 1.99 USD
+      Ad length preview
+      Premium subscription v2.0
+    Offline
+      Full offline play
+      Cloud sync on reconnect
+      Saving indicator
+    A11y
+      Kid Mode UI
+      Hindi + Bengali translations
+      Mirror controls v1.1
+      High-contrast mode v1.1
+    Onboarding
+      3-screen welcome
+      Language pick
+      Optional login
+      New game notification v1.1
+```
 
 Stories are organized by feature area. Each follows the canonical "As a [persona], I want [goal], so that [benefit]" format. Priority is in parentheses: (P0) for v1.0 must-have, (P1) for v1.1, (P2) for v2.0+.
 
@@ -377,6 +619,17 @@ After 14 days, Mr. Banerjee notices a small "Remove Ads — ₹99" banner at the
 
 ## 9. Core Features (v1.0 P0)
 
+```mermaid
+pie title 12 P0 Features by Category
+    "Gameplay" : 4
+    "Identity" : 2
+    "Leaderboards" : 1
+    "Streak" : 1
+    "Monetization" : 2
+    "Offline" : 1
+    "Onboarding" : 1
+```
+
 The following 12 features are P0 (must-have for v1.0). Each is anchored in user stories above. The "Why" column explains why this is in v1.0 and not later.
 
 | # | Feature | User story anchor | Why in v1.0 |
@@ -409,6 +662,38 @@ The user brief says "7 Python games + planned Pong = 8 games." Our scoping analy
 ---
 
 ## 10. Future Features (P1/P2 Backlog)
+
+```mermaid
+gantt
+    title Future Features Timeline
+    dateFormat YYYY-MM
+    axisFormat %b %Y
+
+    section v1.1 (3 months post-launch)
+    RPS with AI personalities        :v11a, 2027-07, 1m
+    iOS release                      :v11b, 2027-07, 2m
+    Web release 4 games              :v11c, 2027-08, 2m
+    Public handles                   :v11d, 2027-07, 1m
+    Phone number auth                :v11e, 2027-08, 1m
+
+    section v1.5 (6 months post-launch)
+    Tamil and Telugu UI              :v15a, 2027-12, 2m
+    Tournament async ghost races     :v15b, 2028-01, 2m
+    Mirror controls + colorblind     :v15c, 2028-01, 1m
+
+    section v2.0 (9-12 months post-launch)
+    Pong real-time multiplayer       :v20a, 2028-08, 4m
+    Friends list and challenges      :v20b, 2028-08, 3m
+    Daily challenges curated         :v20c, 2028-09, 2m
+    Premium subscription 4.99 USD    :v20d, 2028-10, 1m
+    Arabic UI                        :v20e, 2028-10, 2m
+
+    section v3.0 (18+ months)
+    Cross-platform accounts          :v30a, 2029-10, 6m
+    Streaming spectator mode         :v30b, 2029-12, 4m
+    Developer SDK third-party        :v30c, 2030-02, 6m
+    Marketplace revenue share        :v30d, 2030-04, 4m
+```
 
 ### 10.1 P1 — v1.1 (3 months post-launch)
 
@@ -658,6 +943,15 @@ This metric is the North Star (the single number that best reflects the value we
 
 ### 13.2 Supporting Metrics
 
+```mermaid
+xychart-beta
+    title "Retention Curves (Target)"
+    x-axis ["Day 1", "Day 7", "Day 14", "Day 30"]
+    y-axis "Retention %" 0 --> 100
+    line [40, 18, 12, 8]
+    line [30, 8, 4, 3]
+```
+
 | # | Metric | Definition | Year 1 target |
 |---|---|---|---|
 | SM-01 | **D1 Retention** | % of new installs that return on day 2 | ≥40% (vs. 25–30% category median) |
@@ -674,6 +968,14 @@ This metric is the North Star (the single number that best reflects the value we
 ---
 
 ## 14. KPIs
+
+```mermaid
+xychart-beta
+    title "Year-1 KPI Targets"
+    x-axis ["DAU 30K", "D7 Ret 18%", "ARPDAU 0.10", "Crash-free 99.5%", "Rating 4.4"]
+    y-axis "Value" 0 --> 100
+    bar [30, 18, 10, 99.5, 88]
+```
 
 We track 18 KPIs. Each has a baseline (industry or competitor benchmark), a v1.0 target, a v1.5 target, and a v2.0 target. The team reviews these weekly.
 
@@ -714,6 +1016,23 @@ We track 18 KPIs. Each has a baseline (industry or competitor benchmark), a v1.0
 
 ## 15. Competitor Analysis Summary
 
+```mermaid
+quadrantChart
+    title "Games Platform Positioning"
+    x-axis "Offline-first" --> "Online-only"
+    y-axis "Casual" --> "Hyper-casual"
+    quadrant-1 "Casual + Online"
+    quadrant-2 "Hyper-casual + Online"
+    quadrant-3 "Hyper-casual + Offline-first"
+    quadrant-4 "Casual + Offline-first"
+    Poki: [0.15, 0.85]
+    CrazyGames: [0.10, 0.90]
+    Y8: [0.20, 0.80]
+    Mini Militia: [0.55, 0.70]
+    Roblox: [0.45, 0.95]
+    Our Product: [0.92, 0.35]
+```
+
 We surveyed 10 competitors across 3 categories: (a) shipped Flutter multi-game apps, (b) web aggregators, and (c) casual-game heavyweights. The table below summarizes key features, with a "✓" for present, "✗" for absent, and "P" for partial.
 
 | # | Competitor | Category | Offline | Firebase | Cross-game ID | Rewarded ads | Multi-lang (EN+HI+BN) | Kid-safe | iOS+Web | Last updated |
@@ -752,6 +1071,24 @@ We surveyed 10 competitors across 3 categories: (a) shipped Flutter multi-game a
 
 ## 16. Risk Assessment
 
+```mermaid
+quadrantChart
+    title "Risk Matrix (Likelihood x Impact)"
+    x-axis "Low likelihood" --> "High likelihood"
+    y-axis "Low impact" --> "High impact"
+    quadrant-1 "High likelihood + High impact"
+    quadrant-2 "Low likelihood + High impact"
+    quadrant-3 "Low likelihood + Low impact"
+    quadrant-4 "High likelihood + Low impact"
+    R-01 Trademark rejection: [0.85, 0.90]
+    R-02 6 games in 12 months: [0.55, 0.95]
+    R-03 D7 retention miss: [0.50, 0.75]
+    R-04 AdMob flagged: [0.25, 0.70]
+    R-05 COPPA violation: [0.45, 0.90]
+    R-06 Firestore cost overrun: [0.45, 0.75]
+    R-07 iOS/Web deferred loss: [0.20, 0.55]
+```
+
 The following 7 risks are the highest-priority. Each has a probability (P), impact (I), and mitigation owner. Risks are ranked by P × I.
 
 | # | Risk | P | I | Mitigation | Owner |
@@ -776,6 +1113,19 @@ The following 7 risks are the highest-priority. Each has a probability (P), impa
 ## 17. Release Strategy
 
 ### 17.1 Phased Rollout
+
+```mermaid
+gantt
+    title Release Strategy
+    dateFormat YYYY-MM-DD
+    axisFormat %b %d
+
+    section Phase 5 — Release
+    Internal Alpha (3 + 5 friends)        :alpha, 2027-02-15, 14d
+    Closed Beta (500-1000 users)          :beta, after alpha, 28d
+    Staged Rollout (5% to 20% to 50%)     :staged, after beta, 14d
+    Global Availability (India + SEA)     :global, after staged, 7d
+```
 
 We will release in 4 stages: (a) internal alpha, (b) closed beta, (c) staged rollout, (d) global availability.
 
@@ -845,6 +1195,17 @@ We will release in 4 stages: (a) internal alpha, (b) closed beta, (c) staged rol
 ---
 
 ## 18. Roadmap Overview
+
+```mermaid
+pie title Phase Effort Allocation
+    "Phase 0 Foundations" : 20
+    "Phase 1.5 Touch RFC" : 10
+    "Phase 2 Backend" : 15
+    "Phase 3 Polish" : 15
+    "Phase 4.5 i18n+A11y" : 10
+    "Phase 5 QA+Launch" : 15
+    "Reserve" : 15
+```
 
 ### 18.1 Phases
 
@@ -929,6 +1290,19 @@ gantt
 
 ## 19. Team Responsibilities
 
+```mermaid
+graph LR
+    Subhadip["Subhadip Paul<br/>Team Lead<br/>Backend + Architecture + DevOps"]
+    Abhishek["Abhishek<br/>Frontend<br/>Components + QA + Animations"]
+    Samhita["Samhita<br/>Design + QA<br/>Research + i18n + Content"]
+    Subhadip --- S1["Firebase<br/>Firestore<br/>Cloud Functions<br/>App Check<br/>CI/CD"]
+    Abhishek --- A1["Flutter<br/>GameModule<br/>State Mgmt<br/>Perf + A11y"]
+    Samhita --- M1["Figma<br/>Hindi + Bengali<br/>QA Plans<br/>Store Listing"]
+    Subhadip -. reports to .-> Roadmap
+    Abhishek -. reports to .-> Roadmap
+    Samhita -. reports to .-> Roadmap
+```
+
 The team is 3 people. Each owns a primary track, a learning track, and a deliverable track. We rotate responsibilities quarterly to avoid bus-factor-of-1 (a single-person dependency) and to build shared context.
 
 | Owner | Primary | Secondary (learning) | Deliverable in v1.0 |
@@ -968,6 +1342,13 @@ The team is 3 people. Each owns a primary track, a learning track, and a deliver
 ## 20. MVP Scope
 
 ### 20.1 What's IN v1.0
+
+```mermaid
+pie title v1.0 Scope (Feature Count)
+    "6 Games" : 60
+    "12 P0 Features" : 30
+    "Infrastructure" : 10
+```
 
 **Catalog (6 games):**
 - Snake
@@ -1061,6 +1442,17 @@ The team is 3 people. Each owns a primary track, a learning track, and a deliver
 ---
 
 ## 22. Scaling Strategy
+
+```mermaid
+flowchart LR
+    A[Phase A Foundations v1.0] --> B[6 in-house games]
+    B --> C[Phase B Templating v1.5]
+    C --> D[12 games, 2-3 week build]
+    D --> E[Phase C Community v2.0]
+    E --> F[20 games, open-source SDK]
+    F --> G[Phase D Marketplace v3.0]
+    G --> H[50-500+ games, 70/30 revenue share]
+```
 
 ### 22.1 The Path from 8 to 50 to 500+ Games
 
@@ -1177,6 +1569,82 @@ For the catalog to scale from 6 to 50+ without linear team growth, every game mu
 5. **Should we ship with English-only on day 1 of the staged rollout, then add Hindi + Bengali in week 2?** Reduces review surface but delays localization win.
 
 ### 23.5 Acknowledgements
+
+```mermaid
+mindmap
+  root((Full PRD Mindmap))
+    Section 1 Executive Summary
+      Market context
+      Our answer
+      The ask
+    Section 2 Vision
+      Default phone arcade
+      Platform not product
+    Section 3 Mission
+      Offline default
+      Identity earned
+      Ads opt-in
+      Kid-safe
+    Section 4 Problems
+      Login friction
+      Web aggregators wrong
+      Trademark minefields
+      8 games too many
+      Ad monetization fragile
+      Platform unstable
+    Section 5 Audience
+      420M India casual
+      Tier 1-3 cities
+      English + Hindi + Bengali
+    Section 6 Personas
+      Riya 9 kid
+      Aarav 16 teen
+      Priya 28 commuter
+      Mr Banerjee 38 parent
+    Section 7 Stories
+      Identity + Library
+      Gameplay + Leaderboards
+      Streak + Monetization
+      Offline + A11y + Onboarding
+    Section 8 Journey
+      Discovery to Day 120
+    Section 9 Core Features
+      12 P0 features
+    Section 10 Future Features
+      P1 v1.1
+      P2 v2.0
+      P3 v3.0
+    Section 11 Functional Reqs
+      25 FRs across 7 groups
+    Section 12 Non-Functional
+      Performance + Security
+      Privacy + A11y + Scale
+    Section 13 Success Metrics
+      North Star WAP-3
+      10 supporting metrics
+    Section 14 KPIs
+      18 KPIs tracked weekly
+    Section 15 Competitors
+      10 surveyed
+      4 key wins
+    Section 16 Risks
+      7 risks ranked P x I
+    Section 17 Release
+      4 stages alpha to global
+    Section 18 Roadmap
+      7 phases over 14 months
+    Section 19 Team
+      Subhadip + Abhishek + Samhita
+    Section 20 MVP Scope
+      6 games in, 8 deferred
+    Section 21 Post-MVP
+      v1.1 + v2.0 + v3.0
+    Section 22 Scaling
+      6 to 12 to 20 to 50-500+
+    Section 23 Appendix
+      Glossary + change log
+      Open questions + ack
+```
 
 This PRD is the synthesis of:
 - The team's `APP_DEVELOPMENT.md` (the original scoping document)

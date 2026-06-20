@@ -58,6 +58,36 @@ Per `PRD.md §3` (Unique Value Proposition): **One app. Six games. Zero friction
 
 ### 1.3 Six working principles
 
+```mermaid
+mindmap
+  root((Design Philosophy))
+    Calm
+      Low-saturation surfaces
+      One accent per screen
+      Restrained chrome
+    BigBraveForgiving
+      48 dp touch floors
+      16 dp spacing base
+      Thumb-reach tested
+    OfflineDefault
+      Cached assets
+      Optimistic UI
+      Subtle sync badges
+    ChildSafe
+      No chat or DMs
+      Curated avatars
+      Audited screens
+    Localized
+      EN HI BN from day one
+      1.55x line-height
+      Noto font stack
+    SystemHonour
+      Reduce Motion
+      textScaler
+      Material You
+      Dark mode
+```
+
 #### Principle 1 — Calm by default
 
 Arcade games are loud. Our chrome is quiet. We use generous whitespace, low-saturation surfaces, and a maximum of one accent colour per screen. Game surfaces can be vivid; the *frame around the game* is always restrained. **Why:** per persona Priya (adult commuter) and Mr. Banerjee (parent), the app must feel like a refuge, not a casino.
@@ -93,6 +123,24 @@ English default, plus Hindi + Bengali (per `PRD.md §3`). All copy is authored i
 > **Why this is a placeholder.** Per `PRD.md §4.2`, the team is still validating whether *Games Platform* survives contact with the Play Store. The name "Games Platform" is descriptive but bland. Candidates for a rename include **Arcade Bharat**, **GameKhana** (Hindi: "play house"), **PixelBaadi** (Bengali: "sibling of play"). A rename triggers a token rename (Section 6) but does not change anything else in this spec.
 
 ### 2.2 Logo concept
+
+```mermaid
+graph TB
+  Logo[App Logo 48x48 viewBox]
+  Wordmark[Wordmark: 'G' stylised]
+  MascotPi[Mascot Pi: 4-segment tail]
+  AccentRing[Accent Ring: rounded stroke 4dp]
+  SafeZone[Safe Zone: 2dp margin]
+
+  Logo --> Wordmark
+  Logo --> MascotPi
+  Logo --> AccentRing
+  Logo --> SafeZone
+
+  Wordmark --> Triangle[Play triangle notch 12dp]
+  Wordmark --> Arrow[Upward arrow negative space]
+  AccentRing --> InnerStroke[Triangle alignment to right edge]
+```
 
 **Form:** a soft-cornered square (24 dp radius) holding a stylised **"G"** that doubles as a play-button triangle. The negative space inside the G forms an upward arrow — signalling "level up".
 
@@ -131,6 +179,31 @@ Minimum size: 24×24 dp (app icon will scale to 192 px)
 **Forbidden words:** *free* (legally fraught in India), *easy* (dismissive of effort), *just* (minimises user effort), *win* (in error messages — implies the user lost).
 
 ### 2.5 Mascot candidate
+
+```mermaid
+mindmap
+  root((Mascot Pi))
+    Personality
+      Friendly
+      Curious
+      Encouraging
+      Non-verbal
+    VisualStyle
+      Geometric fox
+      M3 colour blocks
+      Round head
+      Triangular ears
+    Motion
+      Idle bob
+      Wink peek
+      Cheer bounce
+      Sleep curl
+    Scenarios
+      Onboarding
+      Empty states
+      Achievement toast
+      Splash intro
+```
 
 **Working name: "Pi"** — a friendly geometric fox made entirely of M3 colour blocks (round head, triangular ears, 4-segment tail). Pi is an *opt-in* presence — appears in onboarding, empty states, and the "Achievement unlocked" toast; never inside a game.
 
@@ -225,6 +298,14 @@ Total bundle size: ~640 KB. Acceptable for an app that also ships 6 game binarie
 
 ### 4.3 Type scale (M3-aligned)
 
+```mermaid
+xychart-beta
+    title "Type Scale (px)"
+    x-axis ["display.lg", "headline.lg", "title.lg", "body.lg", "label.lg"]
+    y-axis "Size in px" 0 --> 60
+    bar [57, 32, 22, 16, 14]
+```
+
 Based on Material 3's *typescale generator* with a base of 16 sp. All values in `sp` (respects user's `textScaler`).
 
 | Token | Size | Line-height | Weight | Letter-spacing | Use case |
@@ -246,6 +327,22 @@ Based on Material 3's *typescale generator* with a base of 16 sp. All values in 
 | `label.small` | 11 | 16 | 600 | 0.5 | Overlines, badges |
 
 ### 4.4 Devanagari + Bengali rules
+
+```mermaid
+flowchart LR
+  A[Text Input] --> B{Script Detection}
+  B -->|Latin| C[Default Profile]
+  B -->|Devanagari| D[HI Profile]
+  B -->|Bengali| E[BN Profile]
+  C --> F[line-height 1.5x]
+  D --> G[line-height 1.55x]
+  E --> H[line-height 1.55x]
+  D --> I[NotoSansDevanagari]
+  E --> J[NotoSansBengali]
+  I --> K[Conjunct-safe wrap]
+  J --> K
+  K --> L[Rendered Text]
+```
 
 **Line-height bumps:**
 - All Devanagari text: multiply line-height by **1.55** (vs 1.5 for Latin) to give matras room to breathe above the headline.
@@ -333,6 +430,16 @@ class AppTypography {
 We use **Material 3 dynamic colour** as the starting point via `DynamicColorBuilder` (Flutter ≥ 3.22). When the user is on Android 12+, we derive a `ColorScheme` from the system wallpaper. When not, or when the user has toggled "Use Material You" off in Settings, we fall back to our **brand palette** (Section 5.2).
 
 ### 5.2 Brand palette (the fallback that ships in the APK)
+
+```mermaid
+pie title Color Token Categories
+  "Primary" : 25
+  "Secondary" : 15
+  "Tertiary" : 10
+  "Neutral" : 30
+  "Semantic" : 10
+  "Surface" : 10
+```
 
 **Primary — "Cosmic Indigo" `#5B57D9`**
 
@@ -479,6 +586,43 @@ These appear as a small dot + label in the App Bar (Section 7.2).
 ---
 
 ## 6. Design Tokens
+
+```mermaid
+mindmap
+  root((Token Taxonomy))
+    Color
+      Brand
+      Surface
+      Semantic
+      Game
+    Typography
+      Display
+      Headline
+      Title
+      Body
+      Label
+    Spacing
+      4dp base
+      8dp step
+      16dp floor
+      24dp page
+    Shape
+      Radius
+      Corner style
+      Pill
+    Motion
+      Duration
+      Easing
+      Spring
+    Elevation
+      Level 0-5
+      Shadow tokens
+    State
+      Hover
+      Focus
+      Pressed
+      Disabled
+```
 
 ### 6.1 Token format
 
@@ -637,6 +781,26 @@ class AppTokens {
 
 ### 7.1 Component index
 
+```mermaid
+graph TB
+  Atoms[Atoms] --> Button[Button]
+  Atoms --> Avatar[Avatar]
+  Atoms --> Badge[Badge]
+  Molecules[Molecules] --> GameCard[GameCard]
+  Molecules --> ScoreBoard[ScoreBoard]
+  Molecules --> Dialog[Dialog]
+  Molecules --> Snackbar[Snackbar]
+  Organisms[Organisms] --> HomeFeed[HomeFeed]
+  Organisms --> Leaderboard[Leaderboard]
+  Organisms --> Settings[Settings List]
+  Templates[Templates] --> HomeScreen[HomeScreen]
+  Templates --> GameDetail[GameDetail]
+  Templates --> ProfileScreen[ProfileScreen]
+  Atoms --> Molecules
+  Molecules --> Organisms
+  Organisms --> Templates
+```
+
 | # | Component | Used on screens |
 |---|---|---|
 | 1 | `AppBar` (4 variants) | All screens |
@@ -669,6 +833,19 @@ class AppTokens {
 | 28 | `Tooltip` | Discovery (game difficulty explainer) |
 
 ### 7.2 Component 1 — AppBar (4 variants)
+
+```mermaid
+stateDiagram-v2
+  [*] --> Default
+  Default --> Search: tap search icon
+  Search --> Default: tap close
+  Search --> Filtered: type query
+  Filtered --> Search: clear query
+  Default --> Scrolled: scroll > 8dp
+  Scrolled --> Default: scroll to top
+  Filtered --> Scrolled: scroll while typing
+  Scrolled --> Default: scroll up
+```
 
 **Variants:** `main`, `game`, `modal`, `detail`.
 
@@ -728,6 +905,22 @@ AppBar(
 ```
 
 ### 7.3 Component 2 — Button (5 variants)
+
+```mermaid
+stateDiagram-v2
+  [*] --> Idle
+  Idle --> Hovered: pointer enter
+  Hovered --> Idle: pointer leave
+  Idle --> Pressed: tap down
+  Hovered --> Pressed: tap down
+  Pressed --> Idle: tap up
+  Pressed --> Loading: long press / async
+  Loading --> Idle: success
+  Loading --> Idle: error
+  Idle --> Disabled: condition false
+  Hovered --> Disabled: condition false
+  Disabled --> Idle: condition true
+```
 
 **Variants:** `filled`, `tonal`, `outlined`, `text`, `icon`.
 
@@ -835,6 +1028,20 @@ FilledButton(
 - No nested tappables (the play button is decorative)
 
 ### 7.5 Component 4 — Dialog (3 variants)
+
+```mermaid
+sequenceDiagram
+  participant U as User
+  participant D as Dialog
+  participant S as System
+  U->>D: tap trigger
+  D->>S: barrier show
+  S->>D: open animation 150ms
+  D->>U: focus trap + scrim
+  U->>D: choose option
+  D->>S: close animation 100ms
+  S->>U: route back / action
+```
 
 **Variants:** `alert`, `confirm`, `custom`.
 
@@ -1014,6 +1221,20 @@ Used as fallback on tablets (≥ 600 dp) per `TRD.md §3` (responsive layout).
 
 ### 7.15 Component 14 — GameCard
 
+```mermaid
+graph TB
+  Card[GameCard 16dp radius]
+  Card --> Thumb[Thumbnail Slot]
+  Card --> Title[Title Slot]
+  Card --> Meta[Meta Row: rating + plays]
+  Card --> Tag[Tag Chip]
+  Card --> CTA[CTA Tonal Button]
+  Card --> Badge[Optional Badge: NEW or HOT]
+  Thumb --> Icon[72dp game icon]
+  Meta --> Stars[Star rating]
+  Meta --> Plays[Play count]
+```
+
 Detailed anatomy:
 
 ```
@@ -1041,6 +1262,18 @@ Used on Home grid (2 columns), Category screen (2 or 3 columns by breakpoint), A
 
 ### 7.16 Component 15 — ScoreBoard
 
+```mermaid
+graph TB
+  Board[ScoreBoard]
+  Board --> Label[SCORE labelSmall]
+  Board --> Value[displaySmall mono]
+  Board --> Delta[Delta: +340]
+  Board --> Icon[Optional trophy icon]
+  Delta --> Up[green up arrow gain]
+  Delta --> Down[red down arrow loss]
+  Value --> ScoreStyle[tabularFigures]
+```
+
 **Used in:** Game result screen, in-game HUD (top-left).
 
 **Anatomy:**
@@ -1059,6 +1292,18 @@ Used on Home grid (2 columns), Category screen (2 or 3 columns by breakpoint), A
 - Negative deltas use `game.danger` colour
 
 ### 7.17 Component 16 — LeaderboardRow
+
+```mermaid
+stateDiagram-v2
+  [*] --> Loading
+  Loading --> Loaded: data fetched
+  Loading --> Stale: timeout 5s
+  Loaded --> Highlighted: row == currentUser
+  Highlighted --> Loaded: scroll away
+  Loaded --> Stale: refresh failed
+  Stale --> Loaded: refresh success
+  Stale --> Loading: pull to refresh
+```
 
 ```
 ┌──────────────────────────────────────────────────────┐
@@ -1309,6 +1554,22 @@ graph TD
 
 ### 8.2 Routing (go_router)
 
+```mermaid
+stateDiagram-v2
+  [*] --> Splash
+  Splash --> Onboarding: first run
+  Splash --> Auth: returning no session
+  Splash --> Home: returning with session
+  Onboarding --> Auth: sign up or in
+  Onboarding --> Home: play as guest
+  Auth --> Home: success
+  Home --> Game: tap tile
+  Game --> Pause: tap pause
+  Pause --> Game: resume
+  Game --> Result: game over
+  Result --> Home: play again or back
+```
+
 Per `TRD.md §3.2`, we use `go_router`. Routes:
 
 | Path | Page | Auth required |
@@ -1430,6 +1691,20 @@ graph TB
   GameCard1 --> PlayButton[Play - tonal]
 ```
 
+```mermaid
+graph TB
+  H[Scaffold] --> HAppBar[AppBar]
+  H --> HBody[Body]
+  H --> HNav[BottomNav]
+  HBody --> Feed[AppFeed]
+  Feed --> GoW[Game of the Week]
+  Feed --> CP[Continue Playing]
+  Feed --> Cats[Categories]
+  GoW --> GoWCard[Hero Card]
+  CP --> CPRow[Horizontal Row]
+  Cats --> ChipRow[Chip Row]
+```
+
 ### 8.8 Component hierarchy — Game Detail (Mermaid graph TB)
 
 ```mermaid
@@ -1454,6 +1729,21 @@ graph TB
   TabAch --> AchGrid
   AchGrid --> AchBadge1
   AchGrid --> AchBadge2
+```
+
+```mermaid
+graph TB
+  GD[Scaffold] --> GAppBar[AppBar back+fav+share]
+  GD --> Body[Body scroll]
+  Body --> HeroHeader[HeroHeader 240dp art]
+  Body --> Description[Description bodyLarge]
+  Body --> StatsRow[StatsRow: rating+plays+duration]
+  Body --> LBPreview[LeaderboardPreview top 3]
+  Body --> Reviews[Reviews row]
+  Body --> PlayCTA[Play CTA sticky bottom]
+  StatsRow --> Stat1[Rating]
+  StatsRow --> Stat2[Plays]
+  StatsRow --> Stat3[Duration]
 ```
 
 ### 8.9 Component hierarchy — Profile (Mermaid graph TB)
@@ -1495,6 +1785,16 @@ graph TB
 
 ### 9.2 Edge-to-edge
 
+```mermaid
+flowchart LR
+  A[Status Bar 24-32dp] --> B[Nav Bar 48dp gesture]
+  B --> C[Content Area flex]
+  C --> D[IME Area 0-280dp when focused]
+  A -.->|transparent| B
+  C -.->|window insets| A
+  D -.->|push content up| C
+```
+
 - App uses full screen height including under the status bar.
 - Status bar icons adapt to theme (`SystemUiOverlayStyle.dark` on light backgrounds, `light` on dark).
 - On light theme, status bar = transparent with dark icons. On dark theme = transparent with light icons.
@@ -1531,6 +1831,18 @@ Density is a `ThemeData` extension, not a runtime override. Selected in Settings
 ## 10. Responsive Design Rules
 
 ### 10.1 Breakpoints
+
+```mermaid
+graph TB
+  BP[Breakpoint Strategy] --> Compact[Compact less-than 600dp]
+  BP --> Medium[Medium 600-840dp]
+  BP --> Expanded[Expanded 840-1200dp]
+  BP --> Large[Large 1200dp+]
+  Compact --> Phones[Phones portrait]
+  Medium --> SmallTab[Small tablets + foldables]
+  Expanded --> Tablets[Tablets + landscape]
+  Large --> Desktop[Desktop preview v1.1]
+```
 
 Material 3 window-size classes:
 
@@ -1583,6 +1895,18 @@ LayoutBuilder(
 ## 11. Accessibility Guidelines
 
 ### 11.1 TalkBack / VoiceOver labels
+
+```mermaid
+flowchart LR
+  A[Design Spec] --> B[Code with Semantics]
+  B --> C[Lint: a11y rules]
+  C --> D[Manual Testing]
+  D --> E[Screen Reader Pass]
+  E --> F{All labels clear?}
+  F -->|Yes| G[Pass]
+  F -->|No| H[Fail - back to Design]
+  H --> A
+```
 
 **Every interactive element gets a `Semantics` label.**
 
@@ -1745,6 +2069,19 @@ graph LR
   D --> K
 ```
 
+```mermaid
+journey
+    title User Onboarding Journey
+    section Welcome
+      Open app for first time: 5: Riya
+    section Preview
+      Browse six games preview: 4: Riya
+    section Permissions
+      Read safety & offline info: 3: Riya
+    section Play
+      Tap a game to start: 5: Riya
+```
+
 ### 12.3 Screen 1 — Welcome
 
 **ASCII wireframe (compact, light theme):**
@@ -1842,6 +2179,20 @@ graph LR
 ---
 
 ## 13. Authentication Screens
+
+```mermaid
+stateDiagram-v2
+  [*] --> Anonymous
+  Anonymous --> EmailFlow: tap sign in email
+  Anonymous --> GoogleFlow: tap sign in google
+  Anonymous --> Guest: play as guest
+  EmailFlow --> Verified: confirm email link
+  GoogleFlow --> Verified: oauth success
+  Verified --> Permanent: link anonymous
+  Guest --> Permanent: link email later
+  Permanent --> [*]
+  Verified --> [*]
+```
 
 ### 13.1 Sign In
 
@@ -1957,6 +2308,17 @@ All errors appear as inline field errors + a SnackBar.
 
 ### 14.1 Purpose
 
+```mermaid
+stateDiagram-v2
+  [*] --> Loading
+  Loading --> Empty: no data
+  Loading --> Populated: data ready
+  Populated --> Refreshing: pull to refresh
+  Refreshing --> Populated: data updated
+  Empty --> Populated: first action
+  Populated --> Empty: no recent plays
+```
+
 Primary destination after auth. Communicate "what can I play right now" in < 3 seconds.
 
 ### 14.2 Wireframe (compact, light theme)
@@ -2032,6 +2394,19 @@ Primary destination after auth. Communicate "what can I play right now" in < 3 s
 ---
 
 ## 15. Game Discovery Screens
+
+```mermaid
+stateDiagram-v2
+  [*] --> Browsing
+  Browsing --> Filtered: apply filter chip
+  Filtered --> Browsing: clear filter
+  Browsing --> Detail: tap card
+  Filtered --> Detail: tap card
+  Detail --> Preview: tap trailer
+  Preview --> Detail: close
+  Detail --> Play: tap play
+  Play --> [*]
+```
 
 ### 15.1 All Games screen
 
@@ -2127,6 +2502,18 @@ Filter chips at top (Difficulty: Easy / Medium / Hard; Players: 1 / 2; Duration:
 
 ## 16. Profile Screens
 
+```mermaid
+stateDiagram-v2
+  [*] --> Viewing
+  Viewing --> Editing: tap edit
+  Editing --> Validating: tap save
+  Validating --> Editing: validation error
+  Validating --> Saving: validation pass
+  Saving --> Saved: success
+  Saving --> Editing: network error
+  Saved --> Viewing: 2s timeout
+```
+
 ### 16.1 My Profile
 
 **Wireframe (compact):**
@@ -2196,6 +2583,19 @@ Grid of all achievements (locked + unlocked). Tap → Achievement Detail (Sectio
 ---
 
 ## 17. Settings Screens
+
+```mermaid
+stateDiagram-v2
+  [*] --> Idle
+  Idle --> Changing: tap row
+  Changing --> Confirming: significant change
+  Changing --> Applied: minor change
+  Confirming --> Applied: confirm
+  Confirming --> Idle: cancel
+  Applied --> Reverted: undo within 5s
+  Reverted --> Idle
+  Applied --> Idle: timeout
+```
 
 ### 17.1 Top-level Settings
 
@@ -2310,6 +2710,16 @@ Confirmation dialog:
 
 ## 18. Achievement Screens
 
+```mermaid
+stateDiagram-v2
+  [*] --> Locked
+  Locked --> Progressing: criterion started
+  Progressing --> Unlocked: 100% complete
+  Unlocked --> Celebrating: confetti burst
+  Celebrating --> Showcased: in profile grid
+  Showcased --> Locked: reset debug only
+```
+
 ### 18.1 Achievements list
 
 Grid (3 cols compact, 5 cols medium+) of `AchievementBadge` (sm). Tapping opens detail.
@@ -2379,6 +2789,21 @@ you begin a game."
 
 ## 19. Error States
 
+```mermaid
+flowchart TB
+  A[Detected Event] --> B{Severity?}
+  B -->|cosmetic| C[Info: snackbar]
+  B -->|soft fail| D[Warning: dialog optional]
+  B -->|hard fail| E[Error: full error state]
+  B -->|app-breaking| F[Critical: error screen with reload]
+  B -->|crash| G[Fatal: report + safe exit]
+  C --> H[Auto-dismiss 4s]
+  D --> I[User chooses action]
+  E --> J[User retries]
+  F --> K[User must reload]
+  G --> L[Telemetry sent]
+```
+
 Every error state has: icon, headline, body, primary action, optional secondary action. Tone: apologetic but not grovelling; clear next step.
 
 ### 19.1 No internet
@@ -2443,6 +2868,16 @@ Inline error on the form field + SnackBar. Already covered in Section 13.7.
 
 ## 20. Empty States
 
+```mermaid
+stateDiagram-v2
+  [*] --> NoData
+  NoData --> ActionPrompt: render CTA
+  ActionPrompt --> ActionTaken: user taps CTA
+  ActionTaken --> Populated: data arrives
+  Populated --> [*]
+  NoData --> Populated: data arrives later
+```
+
 ### 20.1 No games played yet
 
 Already covered in Section 12.5 spirit: friendly illustration + "Play your first game" CTA → grid below.
@@ -2498,6 +2933,17 @@ Already covered in Section 12.5 spirit: friendly illustration + "Play your first
 
 ## 21. Loading States
 
+```mermaid
+stateDiagram-v2
+  [*] --> Skeleton
+  Skeleton --> Spinner: over 800ms
+  Skeleton --> Content: data ready
+  Spinner --> Content: data ready
+  Spinner --> Error: timeout 5s
+  Content --> [*]
+  Error --> [*]
+```
+
 ### 21.1 Splash
 
 **Animation:** Pi the fox peeks from bottom, winks, bounces up to reveal logo. Total 1.5 s.
@@ -2540,6 +2986,14 @@ Already covered in Section 12.5 spirit: friendly illustration + "Play your first
 ## 22. Animation Guidelines
 
 ### 22.1 Duration table
+
+```mermaid
+xychart-beta
+    title "Animation Duration (ms)"
+    x-axis ["instant", "fast", "normal", "slow", "dramatic"]
+    y-axis "Milliseconds" 0 --> 1600
+    bar [0, 100, 300, 600, 1500]
+```
 
 | Element | Duration | Easing | Notes |
 |---|---|---|---|
@@ -2601,6 +3055,20 @@ Disable ALL non-essential motion when `MediaQuery.disableAnimations` is true. Ex
 ---
 
 ## 23. Microinteractions
+
+```mermaid
+sequenceDiagram
+  participant U as User
+  participant App
+  participant Haptic
+  participant View
+  U->>App: tap
+  App->>Haptic: lightImpact
+  App->>View: scale 0.97
+  View->>View: spring back 200ms
+  App->>View: ripple 12dp
+  View->>View: settle
+```
 
 ### 23.1 Button press feedback
 
@@ -2744,6 +3212,20 @@ On every score gain (Snake food, Block Drop line clear, RPS win):
 ---
 
 ## 25. Future Design Expansion
+
+```mermaid
+gantt
+    title Future Design Timeline
+    dateFormat YYYY-MM-DD
+    section Themes
+    v1.1 Theming System    :a1, 2026-07-01, 90d
+    section Avatars
+    v1.2 Avatar Sets       :a2, 2026-10-01, 60d
+    section Multiplayer UI
+    v2.0 Multiplayer       :a3, 2027-01-01, 180d
+    section Marketplace
+    v3.0 Skins Marketplace :a4, 2027-09-01, 240d
+```
 
 ### 25.1 P1 (v1.1 — Q3 2026)
 
