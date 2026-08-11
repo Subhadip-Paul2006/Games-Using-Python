@@ -88,7 +88,7 @@ bird_up = pygame.transform.scale(bird_up, (40, 30))
 bird_down = pygame.transform.scale(bird_down, (40, 30))
 
 bird_x = 80
-bird_y = HEIGHT // 2
+bird_y = HEIGHT // 2    
 velocity = 0
 gravity = 0.4
 
