@@ -78,15 +78,11 @@ pie title Mine Density by Difficulty
 ## 🔄 User Flow
 
 ```mermaid
-<<<<<<< HEAD
 flowchart LR
     A([🚀 Start App]) --> B[Enter Player Name]
     B --> C[Select Game Mode / Difficulty]
     C --> D[Generate Mine Board]
     D --> E[Player Clicks a Tile]
-=======
-Game controls 
->>>>>>> 10c6cd1ab7414573c76a973de62db78ef1919acf
 
     E -- "Safe Tile" --> F[Reveal Number of Nearby Mines]
     F --> G{All Safe Tiles Revealed?}
@@ -127,12 +123,11 @@ The player must use logic and deduction to safely uncover all non-mine cells.
 ```text
 MineSneeker/
 │
-├── assets/                # 🖼 Game images / sprites
-│
+├── assets/                # 🔊 Game audio effects
+│   └── sounds/            # Sound files (button, click, explosion, flag, win)
 ├── db_manager.py          # 💾 PostgreSQL high-score manager
-│
 ├── main.py                # 🎮 Main game logic + Tkinter UI
-│
+├── .gitignore             # 🙈 Git ignore configuration
 └── README.md              # 📖 You are here
 ```
 

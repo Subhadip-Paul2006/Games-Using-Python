@@ -132,6 +132,7 @@ Snake Game/
 │
 ├── snake_game.py     # 🎮 Full game logic, rendering, DB
 ├── requirements.txt  # 📦 Pinned dependencies
+├── .gitignore        # 🙈 Git ignore configuration
 └── README.md         # 📖 You are here
 ```
 

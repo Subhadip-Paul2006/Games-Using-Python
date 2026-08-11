@@ -217,18 +217,12 @@ flowchart TB
 ```text
 Rock Paper Scissors/
 │
-├── Images/                  # 🖼 All game assets & icons
-│   ├── Rocking.png
-│   ├── Paper.png
-│   ├── Scissors.png
-│   ├── Screens.png
-│   └── bot.png ... etc.
-│
+├── Images/                  # 🖼 All game assets & icons (sprites, UI elements, screenshots)
 ├── db_manager.py            # 🔌 Centralized DB connection + queries
 ├── setup_db.py              # 🛠 DB schema initialization
 ├── main.py                  # 🚪 Primary entry point combining GUI + flow
 ├── loginGame.py             # 🔐 Alternative integrated auth & game logic
-│
+├── .gitignore               # 🙈 Git ignore configuration
 └── README.md                # 📖 You are here
 ```
 

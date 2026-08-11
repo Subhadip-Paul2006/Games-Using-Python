@@ -1,12 +1,4 @@
-<<<<<<< HEAD
 # 🎮 Tic Tac Toe — Single Player (Python + PyGame)
-=======
-# 🎮 Tic Tac Toe – Single Player (Python + PyGame)
-
-
-
-This is a **Single Player Tic Tac Toe game** built using **Python and PyGame**, with **database integration** for storing game-related data.
->>>>>>> 10c6cd1ab7414573c76a973de62db78ef1919acf
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
@@ -232,12 +224,11 @@ flowchart TB
 ```text
 Tic Tac Toe/
 │
-├── main.py         # 🎮 Game loop, board, rendering, win detection
-├── db_manager.py   # 💾 DBManager wrapper for stats persistence
-├── db_utils.py     # 🔌 Helpers for query construction
-├── .env            # 🔐 Environment variables (DB credentials)
-├── requirements.txt# 📦 Pinned dependencies
-└── README.md       # 📖 You are here
+├── main.py           # 🎮 Game loop, board, rendering, win detection
+├── db_manager.py     # 💾 DBManager wrapper for stats persistence
+├── db_utils.py       # 🔌 Helpers for query construction
+├── requirements.txt  # 📦 Pinned dependencies
+└── README.md         # 📖 You are here
 ```
 
 ---

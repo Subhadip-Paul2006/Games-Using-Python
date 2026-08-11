@@ -153,20 +153,19 @@ Two-player paddle game inspired by the classic arcade.
 ```text
 Games-Using-Python/
 │
-├── 📁 Snake Game/             # 🐍 PyGame snake with PostgreSQL leaderboard
-│   ├── snake_game.py
-│   ├── requirements.txt
-│   └── README.md
-│
 ├── 📁 Flappy Bird/            # 🐦 Pure PyGame arcade with coin pickups
 │   ├── Flappy_Bird.py
-│   ├── Test1.py
-│   ├── *.png  /  *.wav        # sprites + SFX
+│   ├── assests/
+│   │   ├── images/            # Bird and coin sprites
+│   │   └── sounds/            # Flap, point, hit, die, swoosh SFX
+│   ├── .env
+│   ├── requirements.txt
 │   └── README.md
 │
 ├── 📁 Hangman/                # 🔤 Modern dark-themed PyGame hangman
 │   ├── main.py
 │   ├── words.txt
+│   ├── generate_sounds.py
 │   ├── hangman0..6.png
 │   ├── *.wav
 │   └── README.md
@@ -175,6 +174,7 @@ Games-Using-Python/
 │   ├── main.py
 │   ├── db_manager.py
 │   ├── assets/
+│   │   └── sounds/            # Game audio effects
 │   └── README.md
 │
 ├── 📁 Rock Paper Scissors/    # ✊ Tkinter RPS w/ login + leaderboard
@@ -182,7 +182,12 @@ Games-Using-Python/
 │   ├── loginGame.py
 │   ├── db_manager.py
 │   ├── setup_db.py
-│   ├── Images/
+│   ├── Images/                # Sprites and screenshots
+│   └── README.md
+│
+├── 📁 Snake Game/             # 🐍 PyGame snake with PostgreSQL leaderboard
+│   ├── snake_game.py
+│   ├── requirements.txt
 │   └── README.md
 │
 ├── 📁 Tetris Game/            # 🧱 PyGame Tetris w/ procedural audio
@@ -190,17 +195,22 @@ Games-Using-Python/
 │   ├── block.py
 │   ├── constants.py
 │   ├── generate_sounds.py
-│   ├── *.wav
+│   ├── *.wav                  # Procedural 8-bit audio
 │   └── README.md
 │
 ├── 📁 Tic Tac Toe/            # ❌ PyGame tic-tac-toe w/ Postgres
 │   ├── main.py
 │   ├── db_manager.py
 │   ├── db_utils.py
-│   ├── .env
+│   ├── requirements.txt
 │   └── README.md
 │
-└── 📄 README.md               # ⬅️ you are here
+├── 📄 APP_DEVELOPMENT.md      # 📱 Flutter & Firebase App Roadmap
+├── 📄 DESIGN.md               # 🎨 Design System & UI Specs
+├── 📄 PRD.md                  # 📋 Product Requirements Document
+├── 📄 TRD.md                  # 🛠 Technical Requirements Document
+├── 📄 README.md               # ⬅️ Root documentation
+└── 📄 .gitignore
 ```
 
 ---
