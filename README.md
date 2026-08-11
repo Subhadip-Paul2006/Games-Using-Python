@@ -86,7 +86,7 @@ gantt
 |---|------|:------:|--------------|--------|:--------:|
 | 1 | 🟦 Tic Tac Toe | ✅ Completed | Subh & Abhishek | PyGame | ✅ |
 | 2 | 🐍 Snake Game | ✅ Completed | Subh & Abhishek | PyGame | ✅ |
-| 3 | 🐦 Flappy Bird | ✅ Completed | Abhishek & Samhita | PyGame | ❌ |
+| 3 | 🐦 Flappy Bird | ✅ Completed | Abhishek & Samhita | PyGame | ✅ |
 | 4 | 🏓 Pong Game | 📌 Planned | Subh & Abhishek | PyGame | ❌ |
 | 5 | 🔤 Hangman | ✅ Completed | Subh | PyGame | ❌ |
 | 6 | 💣 MineSneeker | ✅ Completed | Subh | Tkinter | ✅ |
