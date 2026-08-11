@@ -1,17 +1,34 @@
 import pygame
 import mysql.connector
 import random
+import os
+from dotenv import load_dotenv
+
+# ---------- PATHS ----------
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+SOUND_DIR = os.path.join(BASE_DIR, "assets", "sounds")
+IMAGE_DIR = os.path.join(BASE_DIR, "assets", "images")
 
 pygame.init()
 pygame.mixer.init()
 
+# ---------- ASSET PATHS ----------
+#BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+#IMAGE_DIR = os.path.join(BASE_DIR, "assets", "images")
+#SOUND_DIR = os.path.join(BASE_DIR, "assets", "sounds")
+
 # ---------- DATABASE ----------
+
+load_dotenv(os.path.join(BASE_DIR, ".env"))
+
 db = mysql.connector.connect(
-    user=DB_USER,
-    password=DB_PASS,
-    host=DB_HOST,
-    database='flappy'
+    user=os.getenv("DB_USER"),
+    password=os.getenv("DB_PASS"),
+    host=os.getenv("DB_HOST"),
+    database="flappy"
 )
+
 cursor = db.cursor()
 
 
@@ -50,11 +67,11 @@ pygame.display.set_caption("Flappy Bird")
 clock = pygame.time.Clock()
 
 # ---------- LOAD SOUNDS ----------
-flap_sound = pygame.mixer.Sound("flap.wav")
-point_sound = pygame.mixer.Sound("point.wav")
-hit_sound = pygame.mixer.Sound("hit.wav")
-die_sound = pygame.mixer.Sound("die.wav")
-swoosh_sound = pygame.mixer.Sound("swoosh.wav")
+flap_sound = pygame.mixer.Sound(os.path.join(SOUND_DIR, "flap.wav"))
+point_sound = pygame.mixer.Sound(os.path.join(SOUND_DIR, "point.wav"))
+hit_sound = pygame.mixer.Sound(os.path.join(SOUND_DIR, "hit.wav"))
+die_sound = pygame.mixer.Sound(os.path.join(SOUND_DIR, "die.wav"))
+swoosh_sound = pygame.mixer.Sound(os.path.join(SOUND_DIR, "swoosh.wav"))
 
 flap_sound.set_volume(0.5)
 point_sound.set_volume(0.5)
@@ -63,8 +80,8 @@ die_sound.set_volume(0.7)
 swoosh_sound.set_volume(0.4)
 
 # ---------- BIRD SPRITES ----------
-bird_up = pygame.image.load("flappy_up.png").convert_alpha()
-bird_down = pygame.image.load("flappy_down.png").convert_alpha()
+bird_up = pygame.image.load(os.path.join(IMAGE_DIR, "flappy_up.png")).convert_alpha()
+bird_down = pygame.image.load(os.path.join(IMAGE_DIR, "flappy_down.png")).convert_alpha()
 bird_up = pygame.transform.scale(bird_up, (40, 30))
 bird_down = pygame.transform.scale(bird_down, (40, 30))
 
@@ -77,7 +94,7 @@ wing_timer = 0
 wing_state = "up"
 
 # ---------- COIN SPRITE ----------
-coin_img = pygame.image.load("coin.png").convert_alpha()
+coin_img = pygame.image.load(os.path.join(IMAGE_DIR, "coin.png")).convert_alpha()
 coin_img = pygame.transform.scale(coin_img, (40, 40))
 coin_x = -100
 coin_y = random.randint(200, 300)
@@ -121,7 +138,7 @@ big_font = pygame.font.SysFont("Arial", 60)
 name_font = pygame.font.SysFont("Arial", 30)
 title_font = pygame.font.SysFont("Arial", 36, bold=True)
 
-# ---------- HIGH SCORE ----------
+# ---------- HIGH SCORE  ----------
 high_score_row = get_high_score()  
 
 # ---------- CLOUDS ----------
@@ -154,7 +171,7 @@ def draw_high_score_banner():
 
 
 def draw_name_entry_screen():
-  
+   
     overlay = pygame.Surface((WIDTH, HEIGHT), pygame.SRCALPHA)
     overlay.fill((0, 0, 0, 40))
     screen.blit(overlay, (0, 0))
@@ -169,7 +186,7 @@ def draw_name_entry_screen():
     pygame.draw.rect(card_surface, (255, 255, 255, 230), card_surface.get_rect(), border_radius=16)
     screen.blit(card_surface, card_rect.topleft)
 
-    
+    # Input box itself
     border_color = COL_BOX_BORDER_ACTIVE if name_active else COL_BOX_BORDER
     pygame.draw.rect(screen, COL_BOX_BG, input_box, border_radius=10)
     pygame.draw.rect(screen, border_color, input_box, width=3, border_radius=10)
@@ -180,7 +197,7 @@ def draw_name_entry_screen():
         text_surface = name_font.render("Type your name...", True, COL_PLACEHOLDER)
     screen.blit(text_surface, (input_box.x + 15, input_box.y + (input_box.height - text_surface.get_height()) // 2))
 
-    
+    # Blinking cursor
     if name_active and cursor_visible and player_name:
         cursor_x = input_box.x + 15 + text_surface.get_width() + 2
         cursor_y1 = input_box.y + 10
