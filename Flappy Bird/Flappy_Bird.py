@@ -7,8 +7,9 @@ from dotenv import load_dotenv
 # ---------- PATHS ----------
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-SOUND_DIR = os.path.join(BASE_DIR, "assets", "sounds")
-IMAGE_DIR = os.path.join(BASE_DIR, "assets", "images")
+ASSET_FOLDER = "assets" if os.path.exists(os.path.join(BASE_DIR, "assets")) else "assests"
+SOUND_DIR = os.path.join(BASE_DIR, ASSET_FOLDER, "sounds")
+IMAGE_DIR = os.path.join(BASE_DIR, ASSET_FOLDER, "images")
 
 pygame.init()
 pygame.mixer.init()
@@ -67,6 +68,7 @@ pygame.display.set_caption("Flappy Bird")
 clock = pygame.time.Clock()
 
 # ---------- LOAD SOUNDS ----------
+
 flap_sound = pygame.mixer.Sound(os.path.join(SOUND_DIR, "flap.wav"))
 point_sound = pygame.mixer.Sound(os.path.join(SOUND_DIR, "point.wav"))
 hit_sound = pygame.mixer.Sound(os.path.join(SOUND_DIR, "hit.wav"))
